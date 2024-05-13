@@ -10,17 +10,25 @@ public class Main{
         LawDatabase database = new LawDatabase();
         System.out.println("Welcome to St Mary's Law Firm");
         System.out.println("What would you like to do?");
+        System.out.println("[0] - CREATE");
         System.out.println("[1] - CREATE");
         System.out.println("[2] - RECEIVE");
         System.out.println("[3] - UPDATE");
-
         System.out.println("[4] - DELETE");
         System.out.println("What would you like to do?");
         int userOption = Input.nextInt();
         switch (userOption) {
+            case 0:
+                try {
+                    database.createDatabase();
+                    break;
+                }
+                catch (Exception e) {
+                    System.out.println(e);
+                }
             case 1:
                 System.out.println("You have selected: CREATE");
-                database.createEntries(1);
+                break;
 
             case 2:
                 System.out.println("You have selected: RECEIVE");

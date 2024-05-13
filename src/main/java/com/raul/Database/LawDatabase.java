@@ -114,17 +114,8 @@ public class LawDatabase {
         }
     }
 
-    public void createEntries(int number) {
-        System.out.println("What do you want to add to Database");
-        System.out.println("[1] - Add Cases");
-        System.out.println("[2] - Add Clients");
-        System.out.println("[3] - Add Documents");
-        System.out.println("[4] - Add Important Date");
-        if (number == 1) {
-            System.out.println("1 was selected");
-        }
-    }
 }
+
 
 
 
