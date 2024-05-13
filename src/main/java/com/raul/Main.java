@@ -1,7 +1,7 @@
 package com.raul;
 import com.raul.Database.LawDatabase;
 
-import java.sql.*;
+//import java.sql.*;
 import java.util.Scanner;
 
 public class Main{
