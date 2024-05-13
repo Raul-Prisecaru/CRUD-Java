@@ -13,6 +13,7 @@ public class Main{
         System.out.println("[1] - CREATE");
         System.out.println("[2] - RECEIVE");
         System.out.println("[3] - UPDATE");
+
         System.out.println("[4] - DELETE");
         System.out.println("What would you like to do?");
         int userOption = Input.nextInt();
