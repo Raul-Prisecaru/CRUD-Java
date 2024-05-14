@@ -1,6 +1,6 @@
 package com.raul.Features;
 
-public class DeleteInformation {
+public class Documents {
         //  Client
     int clientID;
     String clientName;

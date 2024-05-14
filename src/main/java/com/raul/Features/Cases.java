@@ -1,6 +1,6 @@
 package com.raul.Features;
 
-public class RetrieveInformation {
+public class Cases {
         //  Client
     int clientID;
     String clientName;
