@@ -11,25 +11,6 @@ public class Clients extends LawDatabase {
     String clientPhoneNumber;
     String clientEmail;
 
-//    // Case
-//    int caseID;
-//    int caseString;
-//    String caseTitle;
-//    String caseDescription;
-//    String caseStatus;
-//    int dateFiled;
-//    int dateClosed;
-//
-//    // Document
-//    int documentID;
-//    String documentName;
-//    String documentType;
-//    String documentPath;
-//
-//    // Important Dates
-//    int dateID;
-//    int eventDate;
-//    String eventDescription;
 
      // Getter and setter for clientID
     public int getClientID() {
@@ -108,16 +89,118 @@ public class Clients extends LawDatabase {
             }
         }
     }
-public void retrieve(int clientID) {
+public void retrieve() {
+     Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:LawDatabase.db";
+            connection = DriverManager.getConnection(url);
+            System.out.println("Connection to SQLite database established.");
 
-}
+            statement = connection.createStatement();
+            String sql = "SELECT * FROM clients";
+            resultSet = statement.executeQuery(sql);
 
-public void update(int clientID) {
+            while (resultSet.next()) {
+                int clientID = resultSet.getInt("client_id");
+                String clientName = resultSet.getString("client_name");
+                String clientAddress = resultSet.getString("client_address");
+                String clientPhoneNumber = resultSet.getString("client_phone");
+                String clientEmail = resultSet.getString("client_phone");
+                System.out.println("ClientID: " + clientID);
+                System.out.println("Client Name: " + clientName);
+                System.out.println("Client Address: " + clientAddress);
+                System.out.println("Client Phone Number: " + clientPhoneNumber);
+                System.out.println("Client Email: " + clientEmail);
+                System.out.println("-----Next Client-----");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            System.out.println(e);
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+                if (statement != null)
+                    statement.close();
+                if (connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
 
+        }
+    }
+
+public void update(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    try {
+        Class.forName("org.sqlite.JDBC");
+        String url = "jdbc:sqlite:LawDatabase.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("Connection to SQLite database established.");
+
+        String sql = "UPDATE clients " +
+                     "SET client_name = ?, client_address = ?, client_phone = ?, client_email = ? " +
+                     "WHERE client_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, clientName);
+        preparedStatement.setString(2, clientAddress);
+        preparedStatement.setString(3, clientPhoneNumber);
+        preparedStatement.setString(4, clientEmail);
+        preparedStatement.setInt(5, clientID);
+
+        preparedStatement.executeUpdate();
+        System.out.println("Record updated successfully.");
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 }
 
 public void delete(int clientID) {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    try {
+        Class.forName("org.sqlite.JDBC");
+        String url = "jdbc:sqlite:LawDatabase.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("Connection to SQLite database established.");
+
+        String sql = "DELETE FROM clients WHERE client_id = ?" ;
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, clientID);
+        preparedStatement.executeUpdate();
+        System.out.println("Record Deleted Successfully.");
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+}
+
+
+
+
 
 }
 
-}
+
+

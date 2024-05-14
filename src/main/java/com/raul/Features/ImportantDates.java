@@ -2,25 +2,23 @@ package com.raul.Features;
 
 import java.sql.*;
 
-public class Documents {
+public class ImportantDates {
 
-    // Document
-    int documentID;
+    // Important Dates
+    int dateID;
     int caseID;
-    String documentName;
-    String documentType;
-    String documentPath;
-
-     // Getter and setter for documentID
-    public int getDocumentID() {
-        return documentID;
+    int eventDate;
+    String eventDescription;
+    // Getter and Setter for dateID
+    public int getDateID() {
+        return dateID;
     }
 
-    public void setDocumentID(int documentID) {
-        this.documentID = documentID;
+    public void setDateID(int dateID) {
+        this.dateID = dateID;
     }
 
-         // Getter and setter for documentID
+    // Getter and Setter for caseID
     public int getCaseID() {
         return caseID;
     }
@@ -29,35 +27,25 @@ public class Documents {
         this.caseID = caseID;
     }
 
-
-    // Getter and setter for documentName
-    public String getDocumentName() {
-        return documentName;
+    // Getter and Setter for eventDate
+    public int getEventDate() {
+        return eventDate;
     }
 
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
+    public void setEventDate(int eventDate) {
+        this.eventDate = eventDate;
     }
 
-    // Getter and setter for documentType
-    public String getDocumentType() {
-        return documentType;
+    // Getter and Setter for eventDescription
+    public String getEventDescription() {
+        return eventDescription;
     }
 
-    public void setDocumentType(String documentType) {
-        this.documentType = documentType;
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
-    // Getter and setter for documentPath
-    public String getDocumentPath() {
-        return documentPath;
-    }
-
-    public void setDocumentPath(String documentPath) {
-        this.documentPath = documentPath;
-    }
-
-    public void create(int documentID, int caseID, String documentName, String documentType, String documentPath) {
+        public void create(int dateID, int caseID, int eventDate, String eventDescription) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -66,14 +54,12 @@ public class Documents {
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
-            String sql = "INSERT INTO documents (document_id, case_id, document_name, document_type, document_path) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO important_dates (date_id, case_id, event_date, event_description) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, documentID);
+            preparedStatement.setInt(1, dateID);
             preparedStatement.setInt(2, caseID);
-            preparedStatement.setString(3, documentName);
-            preparedStatement.setString(4, documentType);
-            preparedStatement.setString(5, documentPath);
-
+            preparedStatement.setInt(3, eventDate);
+            preparedStatement.setString(4, eventDescription);
             preparedStatement.executeUpdate();
             System.out.println("Record inserted successfully.");
         } catch (ClassNotFoundException | SQLException e) {
@@ -100,21 +86,19 @@ public void retrieve() {
             System.out.println("Connection to SQLite database established.");
 
             statement = connection.createStatement();
-            String sql = "SELECT * FROM documents";
+            String sql = "SELECT * FROM important_dates";
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int clientID = resultSet.getInt("document_id");
-                String clientName = resultSet.getString("case_id");
-                String clientAddress = resultSet.getString("document_name");
-                String clientPhoneNumber = resultSet.getString("document_type");
-                String clientEmail = resultSet.getString("document_path");
-                System.out.println("Document ID: " + clientID);
-                System.out.println("Case ID: " + clientName);
-                System.out.println("Document Name: " + clientAddress);
-                System.out.println("Document Type: " + clientPhoneNumber);
-                System.out.println("Document Path: " + clientEmail);
-                System.out.println("-----Next Document-----");
+                int dateID = resultSet.getInt("date_id");
+                String caseID = resultSet.getString("case_id");
+                String eventDate = resultSet.getString("event_date");
+                String eventDescription = resultSet.getString("event_description");
+                System.out.println("Date ID: " + dateID);
+                System.out.println("Case ID: " + caseID);
+                System.out.println("Event Date: " + eventDate);
+                System.out.println("Event Description: " + eventDescription);
+                System.out.println("-----Next Date-----");
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -133,7 +117,7 @@ public void retrieve() {
         }
     }
 
-public void update(int documentID, int caseID, String documentName, String documentType, String documentPath) {
+public void update(int dateID, int caseID, int eventDate, String eventDescription) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -142,15 +126,14 @@ public void update(int documentID, int caseID, String documentName, String docum
         connection = DriverManager.getConnection(url);
         System.out.println("Connection to SQLite database established.");
 
-        String sql = "UPDATE documents " +
-                     "SET case_id = ?, document_name = ?, document_type = ?, document_path = ?" +
-                     "WHERE document_id = ?";
+        String sql = "UPDATE important_dates " +
+                     "SET case_id = ?, event_date = ?, event_description = ?" +
+                     "WHERE date_id = ?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, caseID);
-        preparedStatement.setString(2, documentName);
-        preparedStatement.setString(3, documentType);
-        preparedStatement.setString(4, documentPath);
-        preparedStatement.setInt(5, documentID);
+        preparedStatement.setInt(2, eventDate);
+        preparedStatement.setString(3, eventDescription);
+        preparedStatement.setInt(4, dateID);
         preparedStatement.executeUpdate();
         System.out.println("Record updated successfully.");
     } catch (ClassNotFoundException | SQLException e) {
@@ -167,7 +150,7 @@ public void update(int documentID, int caseID, String documentName, String docum
     }
 }
 
-public void delete(int documentID) {
+public void delete(int dateID) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -176,9 +159,9 @@ public void delete(int documentID) {
         connection = DriverManager.getConnection(url);
         System.out.println("Connection to SQLite database established.");
 
-        String sql = "DELETE FROM documents WHERE document_id = ?" ;
+        String sql = "DELETE FROM important_dates WHERE date_id = ?" ;
         preparedStatement = connection.prepareStatement(sql);
-        preparedStatement.setInt(1, documentID);
+        preparedStatement.setInt(1, dateID);
         preparedStatement.executeUpdate();
         System.out.println("Record Deleted Successfully.");
     } catch (ClassNotFoundException | SQLException e) {
@@ -193,4 +176,5 @@ public void delete(int documentID) {
             System.out.println(e);
         }
     }
-}}
+    }
+}
