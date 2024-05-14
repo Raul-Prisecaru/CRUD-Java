@@ -4,6 +4,7 @@ import com.raul.Features.Cases;
 import com.raul.Features.Clients;
 import com.raul.Features.Documents;
 import com.raul.Features.ImportantDates;
+import com.raul.GUI.MainMenu;
 
 //import java.sql.*;
 import javax.swing.*;
@@ -21,9 +22,14 @@ public class Main{
         JFrame frame = new JFrame("My First Swing Application");
 
         frame.setSize(400, 300);
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        MainMenu mainMenu = new MainMenu();
+        frame.getContentPane().add(mainMenu);
+
         frame.setVisible(true);
-        frame.setLayout(new FlowLayout());
+
         System.out.println("Welcome to St Mary's Law Firm");
         System.out.println("What would you like to do?");
         System.out.println("[0] - Setup Database");
