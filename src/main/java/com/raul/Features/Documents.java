@@ -104,16 +104,16 @@ public void retrieve() {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int clientID = resultSet.getInt("document_id");
-                String clientName = resultSet.getString("case_id");
-                String clientAddress = resultSet.getString("document_name");
-                String clientPhoneNumber = resultSet.getString("document_type");
-                String clientEmail = resultSet.getString("document_path");
-                System.out.println("Document ID: " + clientID);
-                System.out.println("Case ID: " + clientName);
-                System.out.println("Document Name: " + clientAddress);
-                System.out.println("Document Type: " + clientPhoneNumber);
-                System.out.println("Document Path: " + clientEmail);
+                int documentID = resultSet.getInt("document_id");
+                String caseID = resultSet.getString("case_id");
+                String documentName = resultSet.getString("document_name");
+                String documentType = resultSet.getString("document_type");
+                String documentPath = resultSet.getString("document_path");
+                System.out.println("Document ID: " + documentID);
+                System.out.println("Case ID: " + caseID);
+                System.out.println("Document Name: " + documentName);
+                System.out.println("Document Type: " + documentType);
+                System.out.println("Document Path: " + documentPath);
                 System.out.println("-----Next Document-----");
             }
         } catch (ClassNotFoundException | SQLException e) {
