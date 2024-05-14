@@ -28,6 +28,26 @@ public class Main{
         MainMenu mainMenu = new MainMenu();
         frame.getContentPane().add(mainMenu);
 
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JPanel panel1 = new JPanel();
+        panel1.add(new JLabel("This is CREATE Panel"));
+
+        JPanel panel2 = new JPanel();
+        panel2.add(new JLabel("This is RETRIEVE Panel"));
+
+        JPanel panel3 = new JPanel();
+        panel3.add(new JLabel("This is UPDATE Panel"));
+
+        JPanel panel4 = new JPanel();
+        panel4.add(new JLabel("This is DELETE Panel"));
+
+        tabbedPane.addTab("✍ CREATE", panel1);
+        tabbedPane.addTab("\uD83D\uDCDA RETRIEVE", panel2);
+        tabbedPane.addTab("\uD83D\uDD03 UPDATE", panel3);
+        tabbedPane.addTab("❌ DELETE", panel4);
+        frame.add(tabbedPane);
+
         frame.setVisible(true);
 
         System.out.println("Welcome to St Mary's Law Firm");

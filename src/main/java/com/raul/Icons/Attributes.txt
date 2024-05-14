@@ -1,0 +1,11 @@
+-- Create Button --
+<a href="https://www.flaticon.com/free-icons/create" title="create icons">Create icons created by Gajah Mada - Flaticon</a>
+
+-- Search Button --
+<a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by srip - Flaticon</a>
+
+-- Update Button --
+<a href="https://www.flaticon.com/free-icons/refresh" title="refresh icons">Refresh icons created by Becris - Flaticon</a>
+
+-- Delete Button -- 
+<a href="https://www.flaticon.com/free-icons/delete" title="delete icons">Delete icons created by Freepik - Flaticon</a>
