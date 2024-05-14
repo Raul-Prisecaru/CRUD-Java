@@ -4,11 +4,13 @@ import com.raul.Features.Cases;
 import com.raul.Features.Clients;
 import com.raul.Features.Documents;
 import com.raul.Features.ImportantDates;
-import com.raul.GUI.MainMenu;
+import com.raul.GUI.Tab1Create;
+import com.raul.GUI.Tab2Retrieve;
+import com.raul.GUI.Tab3Update;
+import com.raul.GUI.Tab4Delete;
 
 //import java.sql.*;
 import javax.swing.*;
-import java.awt.*;
 import java.util.Scanner;
 
 public class Main{
@@ -19,30 +21,26 @@ public class Main{
         Cases cases = new Cases();
         Documents documents = new Documents();
         ImportantDates importantDates = new ImportantDates();
-        JFrame frame = new JFrame("My First Swing Application");
+        JFrame frame = new JFrame("Law Firm System");
 
         frame.setSize(400, 300);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        MainMenu mainMenu = new MainMenu();
-        frame.getContentPane().add(mainMenu);
-
         JTabbedPane tabbedPane = new JTabbedPane();
+        Tab1Create tab1Create = new Tab1Create();
+        Tab2Retrieve tab2Retrieve = new Tab2Retrieve();
+        Tab3Update tab3Update = new Tab3Update();
+        Tab4Delete tab4Delete = new Tab4Delete();
 
-        JPanel panel1 = new JPanel();
-        panel1.add(new JLabel("This is CREATE Panel"));
 
-        JPanel panel2 = new JPanel();
-        panel2.add(new JLabel("This is RETRIEVE Panel"));
 
-        JPanel panel3 = new JPanel();
-        panel3.add(new JLabel("This is UPDATE Panel"));
+        JPanel create = new Tab1Create();
+        JPanel panel2 = new Tab2Retrieve();
+        JPanel panel3 = new Tab3Update();
+        JPanel panel4 = new Tab4Delete();
 
-        JPanel panel4 = new JPanel();
-        panel4.add(new JLabel("This is DELETE Panel"));
-
-        tabbedPane.addTab("✍ CREATE", panel1);
+        tabbedPane.addTab("✍ CREATE", create);
         tabbedPane.addTab("\uD83D\uDCDA RETRIEVE", panel2);
         tabbedPane.addTab("\uD83D\uDD03 UPDATE", panel3);
         tabbedPane.addTab("❌ DELETE", panel4);

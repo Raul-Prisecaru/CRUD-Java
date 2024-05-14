@@ -1,11 +1,10 @@
 package com.raul.GUI;
 
 import javax.swing.*;
-
 import java.awt.*;
 
-public class MainMenu extends JPanel {
-    public MainMenu() {
+public class Tab2Retrieve extends JPanel {
+    public Tab2Retrieve() {
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Create Labels
