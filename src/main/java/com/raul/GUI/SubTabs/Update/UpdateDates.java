@@ -1,12 +1,17 @@
-package com.raul.GUI;
+package com.raul.GUI.SubTabs.Update;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Tab2Retrieve extends JPanel {
-    public Tab2Retrieve() {
+public class UpdateDates extends JPanel {
+    public UpdateDates() {
         // Layout for this Page
+        JFrame frame = new JFrame("Law Firm System");
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+
         // Create Labels
         JLabel Title = new JLabel("Welcome To St Mary's Law Firm System");
         JLabel SubTitle = new JLabel("What would you like to do?");

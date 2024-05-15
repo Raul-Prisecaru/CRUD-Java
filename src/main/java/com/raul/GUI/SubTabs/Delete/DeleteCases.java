@@ -1,13 +1,17 @@
-package com.raul.GUI;
+package com.raul.GUI.SubTabs.Delete;
 
 import javax.swing.*;
-
 import java.awt.*;
 
-public class Tab1Create extends JPanel {
-    public Tab1Create() {
+public class DeleteCases extends JPanel {
+    public DeleteCases() {
         // Layout for this Page
+        JFrame frame = new JFrame("Law Firm System");
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+
         // Create Labels
         JLabel Title = new JLabel("Welcome To St Mary's Law Firm System");
         JLabel SubTitle = new JLabel("What would you like to do?");

@@ -1,10 +1,10 @@
-package com.raul.GUI;
+package com.raul.GUI.SubTabs.Create;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Tab3Update extends JPanel {
-    public Tab3Update() {
+public class CreateDates extends JPanel {
+    public CreateDates() {
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Create Labels

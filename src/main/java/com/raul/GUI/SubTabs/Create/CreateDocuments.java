@@ -1,10 +1,10 @@
-package com.raul.GUI;
+package com.raul.GUI.SubTabs.Create;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Tab4Delete extends JPanel {
-    public Tab4Delete() {
+public class CreateDocuments extends JPanel {
+    public CreateDocuments() {
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Create Labels
