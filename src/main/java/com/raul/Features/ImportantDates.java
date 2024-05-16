@@ -1,12 +1,14 @@
 package com.raul.Features;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ImportantDates {
 
     // Important Dates
     int dateID;
-    int caseID;
+    String caseID;
     int eventDate;
     String eventDescription;
     // Getter and Setter for dateID
@@ -19,11 +21,11 @@ public class ImportantDates {
     }
 
     // Getter and Setter for caseID
-    public int getCaseID() {
+    public String getCaseID() {
         return caseID;
     }
 
-    public void setCaseID(int caseID) {
+    public void setCaseID(String caseID) {
         this.caseID = caseID;
     }
 
@@ -75,7 +77,8 @@ public class ImportantDates {
             }
         }
     }
-public void retrieve() {
+public List<ImportantDates> retrieve() {
+        List<ImportantDates> dateList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -90,15 +93,14 @@ public void retrieve() {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int dateID = resultSet.getInt("date_id");
-                String caseID = resultSet.getString("case_id");
-                String eventDate = resultSet.getString("event_date");
-                String eventDescription = resultSet.getString("event_description");
-                System.out.println("Date ID: " + dateID);
-                System.out.println("Case ID: " + caseID);
-                System.out.println("Event Date: " + eventDate);
-                System.out.println("Event Description: " + eventDescription);
-                System.out.println("-----Next Date-----");
+                ImportantDates datesObject = new ImportantDates();
+
+                datesObject.setDateID(resultSet.getInt("date_id"));
+                datesObject.setCaseID(resultSet.getString("case_id"));
+                datesObject.setEventDate(resultSet.getInt("event_date"));
+                datesObject.setEventDescription(resultSet.getString("event_description"));
+
+                dateList.add(datesObject);
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -115,6 +117,7 @@ public void retrieve() {
             }
 
         }
+        return dateList;
     }
 
 public void update(int dateID, int caseID, int eventDate, String eventDescription) {

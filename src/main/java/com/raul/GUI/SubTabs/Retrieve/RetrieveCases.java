@@ -27,12 +27,12 @@ public class RetrieveCases extends JPanel {
         add(title);
 
         // Create JTextField with preferred size
-        JTextField textField = new JTextField();
+//        JTextField textField = new JTextField();
         // Set preferred size (Needs Fixing)
-        textField.setPreferredSize(new Dimension(200, 30));
+//        textField.setPreferredSize(new Dimension(200, 30));
 
         // Add the text field to this panel
-        add(textField);
+//        add(textField);
 
         // Retrieve cases
         List<Cases> caseList = cases.retrieve();

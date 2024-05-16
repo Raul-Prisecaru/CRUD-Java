@@ -3,6 +3,7 @@ package com.raul.GUI.SubTabs.Retrieve;
 import com.raul.Features.Clients;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
 
@@ -28,7 +29,29 @@ public class RetrieveClients extends JPanel {
 
         List<Clients> clientsList = clients.retrieve();
 
-        // Set Spacing
-//        add(Box.createVerticalStrut(10));
+        // Column names for the table
+        String[] columnNames = {"Client ID", "Client Name", "Client Address", "Client PhoneNumber", "Client Email"};
+
+        // Create a table model with empty data and column names
+        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+
+        for (Clients retrievedClients : clientsList) {
+            Object[] rowData = {
+                    retrievedClients.getClientID(),
+                    retrievedClients.getClientName(),
+                    retrievedClients.getClientAddress(),
+                    retrievedClients.getClientPhoneNumber(),
+                    retrievedClients.getClientEmail()
+            };
+            tableModel.addRow(rowData);
+        }
+
+        JTable table = new JTable(tableModel);
+        table.setEnabled(false);
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        add(scrollPane);
+
+
     }
 }
