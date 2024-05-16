@@ -1,6 +1,8 @@
 package com.raul.Features;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Documents {
 
@@ -89,7 +91,8 @@ public class Documents {
             }
         }
     }
-public void retrieve() {
+public List<Documents> retrieve() {
+        List<Documents> documentsList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
@@ -104,17 +107,15 @@ public void retrieve() {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int documentID = resultSet.getInt("document_id");
-                String caseID = resultSet.getString("case_id");
-                String documentName = resultSet.getString("document_name");
-                String documentType = resultSet.getString("document_type");
-                String documentPath = resultSet.getString("document_path");
-                System.out.println("Document ID: " + documentID);
-                System.out.println("Case ID: " + caseID);
-                System.out.println("Document Name: " + documentName);
-                System.out.println("Document Type: " + documentType);
-                System.out.println("Document Path: " + documentPath);
-                System.out.println("-----Next Document-----");
+                Documents documentsObject = new Documents();
+
+                documentsObject.setDocumentID(resultSet.getInt("document_id"));
+                documentsObject.setCaseID(resultSet.getInt("case_id"));
+                documentsObject.setDocumentName(resultSet.getString("document_name"));
+                documentsObject.setDocumentType(resultSet.getString("document_type"));
+                documentsObject.setDocumentPath(resultSet.getString("document_path"));
+
+                documentsList.add(documentsObject);
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -131,6 +132,7 @@ public void retrieve() {
             }
 
         }
+        return documentsList;
     }
 
 public void update(int documentID, int caseID, String documentName, String documentType, String documentPath) {
