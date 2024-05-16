@@ -1,10 +1,14 @@
 package com.raul.GUI.SubTabs.Retrieve;
 
+import com.raul.Features.Clients;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class RetrieveClients extends JPanel {
     public RetrieveClients() {
+        Clients clients = new Clients();
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Create Labels
@@ -21,6 +25,8 @@ public class RetrieveClients extends JPanel {
 
         // Add the labels to this panel
         add(Title);
+
+        List<Clients> clientsList = clients.retrieve();
 
         // Set Spacing
 //        add(Box.createVerticalStrut(10));

@@ -59,7 +59,7 @@ public class Main {
         // Use BoxLayout
         createPanel.setLayout(new BoxLayout(createPanel, BoxLayout.Y_AXIS));
         JTabbedPane createNestedTabbedPane = new JTabbedPane();
-        createNestedTabbedPane.addTab("🧑 Clients", createClient);
+        createNestedTabbedPane.addTab("👨‍💼 Clients", createClient);
         createNestedTabbedPane.addTab("💼 Cases", createCases);
         createNestedTabbedPane.addTab("📃 Documents", createDocuments);
         createNestedTabbedPane.addTab("📅 Dates", createDates);
@@ -70,7 +70,7 @@ public class Main {
         JPanel retrievePanel = new JPanel();
         retrievePanel.setLayout(new BoxLayout(retrievePanel, BoxLayout.Y_AXIS));
         JTabbedPane retrieveNestedTabbedPane = new JTabbedPane();
-        retrieveNestedTabbedPane.addTab("🧑 Clients", retrieveClients);
+        retrieveNestedTabbedPane.addTab("👨‍💼 Clients", retrieveClients);
         retrieveNestedTabbedPane.addTab("💼 Cases", retrieveCases);
         retrieveNestedTabbedPane.addTab("📃 Documents", retrieveDocuments);
         retrieveNestedTabbedPane.addTab("📅 Dates", retrieveDates);
@@ -80,7 +80,7 @@ public class Main {
         JPanel updatePanel = new JPanel();
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.Y_AXIS));
         JTabbedPane updateNestedTabbedPane = new JTabbedPane();
-        updateNestedTabbedPane.addTab("🧑 Clients", updateClients);
+        updateNestedTabbedPane.addTab("👨‍💼 Clients", updateClients);
         updateNestedTabbedPane.addTab("💼 Cases", updateCases);
         updateNestedTabbedPane.addTab("📃 Documents", updateDocuments);
         updateNestedTabbedPane.addTab("📅 Dates", updateDates);
@@ -90,7 +90,7 @@ public class Main {
         JPanel deletePanel = new JPanel();
         deletePanel.setLayout(new BoxLayout(deletePanel, BoxLayout.Y_AXIS));
         JTabbedPane deleteNestedTabbedPane = new JTabbedPane();
-        deleteNestedTabbedPane.addTab("🧑 Clients", deleteClient);
+        deleteNestedTabbedPane.addTab("👨‍💼 Clients", deleteClient);
         deleteNestedTabbedPane.addTab("💼 Cases", deleteCases);
         deleteNestedTabbedPane.addTab("📃 Documents", deleteDocuments);
         deleteNestedTabbedPane.addTab("📅 Dates", deleteDates);

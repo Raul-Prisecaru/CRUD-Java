@@ -1,6 +1,9 @@
 package com.raul.Features;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.raul.Database.LawDatabase;
 
 public class Clients extends LawDatabase {
@@ -89,8 +92,9 @@ public class Clients extends LawDatabase {
             }
         }
     }
-public void retrieve() {
-     Connection connection = null;
+public List<Clients> retrieve() {
+        List<Clients> clientList = new ArrayList<>();
+        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -104,17 +108,15 @@ public void retrieve() {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int clientID = resultSet.getInt("client_id");
-                String clientName = resultSet.getString("client_name");
-                String clientAddress = resultSet.getString("client_address");
-                String clientPhoneNumber = resultSet.getString("client_phone");
-                String clientEmail = resultSet.getString("client_phone");
-                System.out.println("ClientID: " + clientID);
-                System.out.println("Client Name: " + clientName);
-                System.out.println("Client Address: " + clientAddress);
-                System.out.println("Client Phone Number: " + clientPhoneNumber);
-                System.out.println("Client Email: " + clientEmail);
-                System.out.println("-----Next Client-----");
+                Clients clientObjects = new Clients();
+
+                clientObjects.setClientID(resultSet.getInt("client_id"));
+                clientObjects.setClientName(resultSet.getString("client_name"));
+                clientObjects.setClientAddress(resultSet.getString("client_address"));
+                clientObjects.setClientPhoneNumber(resultSet.getString("client_phone"));
+                clientObjects.setClientEmail(resultSet.getString("client_email"));
+
+                clientList.add(clientObjects);
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -129,8 +131,8 @@ public void retrieve() {
             } catch (SQLException e) {
                 System.out.println(e);
             }
-
         }
+        return clientList;
     }
 
 public void update(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {

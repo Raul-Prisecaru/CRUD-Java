@@ -1,6 +1,9 @@
 package com.raul.Features;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.raul.Database.LawDatabase;
 
 public class Cases extends LawDatabase {
@@ -124,8 +127,10 @@ public class Cases extends LawDatabase {
             }
         }
     }
-public void retrieve() {
-     Connection connection = null;
+
+    public List<Cases> retrieve() {
+        List<Cases> caseList = new ArrayList<>();
+        Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
         try {
@@ -139,23 +144,21 @@ public void retrieve() {
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                int caseID = resultSet.getInt("case_id");
-                String caseNumber = resultSet.getString("case_number");
-                String caseTitle = resultSet.getString("case_title");
-                String caseDescription = resultSet.getString("case_description");
-                String caseStatus = resultSet.getString("case_status");
-                int dateFiled = resultSet.getInt("date_filed");
-                int dateClosed = resultSet.getInt("date_closed");
-                int clientID = resultSet.getInt("client_id");
-                System.out.println("Case ID: " + caseID);
-                System.out.println("Case Number: " + caseNumber);
-                System.out.println("Case Title: " + caseTitle);
-                System.out.println("Case Description: " + caseDescription);
-                System.out.println("Case Status: " + caseStatus);
-                System.out.println("Date Filed: " + dateFiled);
-                System.out.println("Date Closed: " + dateClosed);
-                System.out.println("Client ID: " + clientID);
-                System.out.println("-----Next Case-----");
+                Cases caseObject = new Cases();
+
+                // Set values to caseObject
+                caseObject.setCaseID(resultSet.getInt("case_id"));
+                caseObject.setcaseNumber(resultSet.getString("case_number"));
+                caseObject.setCaseTitle(resultSet.getString("case_title"));
+                caseObject.setCaseDescription(resultSet.getString("case_description"));
+                caseObject.setCaseStatus(resultSet.getString("case_status"));
+                caseObject.setDateFiled(resultSet.getInt("date_filed"));
+                caseObject.setDateClosed(resultSet.getInt("date_closed"));
+                caseObject.setClientID(resultSet.getInt("client_id"));
+
+                // Add caseObject to the list
+                caseList.add(caseObject);
+
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -172,6 +175,7 @@ public void retrieve() {
             }
 
         }
+        return caseList;
     }
 
 public void update(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
