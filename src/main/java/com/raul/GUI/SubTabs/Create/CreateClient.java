@@ -15,7 +15,7 @@ public class CreateClient extends JPanel {
         add(title);
 
 //        // Add Vertical Glue to push the components below
-//        add(Box.createVerticalGlue());
+        add(Box.createVerticalGlue());
 
         // Create a nested panel with GridLayout for the JTextField
         JPanel textFieldPanel = new JPanel();
