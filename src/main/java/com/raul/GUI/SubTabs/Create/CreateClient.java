@@ -1,5 +1,7 @@
 package com.raul.GUI.SubTabs.Create;
 
+import com.raul.Features.Clients;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,6 +9,8 @@ import java.awt.event.ActionListener;
 
 public class CreateClient extends JPanel {
     public CreateClient() {
+        Clients clients = new Clients();
+
         // Layout for this Page using BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -114,33 +118,41 @@ public class CreateClient extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Check if Client ID has Letters
+                    int ClientID;
                     try {
-                        int ClientID = Integer.parseInt(clientIDTextField.getText());
+                        ClientID = Integer.parseInt(clientIDTextField.getText());
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("Client ID Must be a Number");
                     }
+                    clients.setClientID(ClientID);
+//                    System.out.println(clients.getClientID());
                     // Check if Client Name is empty
                     String ClientName = clientNameTextField.getText();
                     if (ClientName.isEmpty()) {
                         throw new IllegalArgumentException("Client Name is Empty");
                     }
+                    clients.setClientName(ClientName);
 
                     // Check if Client Address is empty
                     String ClientAddress = clientAddressTextField.getText();
                     if (ClientAddress.isEmpty()) {
                         throw new IllegalArgumentException("Client Address is Empty");
                     }
+                    clients.setClientAddress(ClientAddress);
 
                     // Check if Client Phone Number is empty, meets the Length Requirement
                     // and has no Letters
                     String ClientPhoneNumber = ClientPhoneTextField.getText();
                     if (ClientPhoneNumber.isEmpty()) {
                         throw new IllegalArgumentException("Phone Number is Empty");
-                    } if (!ClientPhoneNumber.matches("\\d+")) {
+                    }
+                    if (!ClientPhoneNumber.matches("\\d+")) {
                         throw new IllegalArgumentException("Letters are not allowed in Phone Number");
-                    } if (ClientPhoneNumber.length() != 11) {
+                    }
+                    if (ClientPhoneNumber.length() != 11) {
                         throw new IllegalArgumentException("Phone Number is not 11 digits long");
                     }
+                    clients.setClientPhoneNumber(ClientPhoneNumber);
 
                     // Check if Email Follows Format
                     String ClientEmail = ClientEmailTextField.getText();
@@ -151,7 +163,9 @@ public class CreateClient extends JPanel {
                     if (ClientEmail.isEmpty()) {
                         throw new IllegalArgumentException("Client Email is empty");
                     }
-                    System.out.println("Validation is Executed");
+                    clients.setClientEmail(ClientEmail);
+                    clients.create(clients.getClientID(), clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
+                    JOptionPane.showMessageDialog(textFieldPanel,"ASD");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(null, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
