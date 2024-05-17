@@ -165,9 +165,9 @@ public class CreateClient extends JPanel {
                     }
                     clients.setClientEmail(ClientEmail);
                     clients.create(clients.getClientID(), clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
-                    JOptionPane.showMessageDialog(textFieldPanel,"ASD");
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
-                    JOptionPane.showMessageDialog(null, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
