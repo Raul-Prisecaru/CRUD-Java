@@ -2,6 +2,8 @@ package com.raul.GUI.SubTabs.Create;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CreateClient extends JPanel {
     public CreateClient() {
@@ -73,7 +75,7 @@ public class CreateClient extends JPanel {
         gbc.gridy = 2;
         textFieldPanel.add(clientAddressTextField, gbc);
 
-        // Create and add Client Address components
+        // Create and add Client PhoneNumber components
         JLabel ClientPhoneLabel = new JLabel("Client Phone");
         JTextField ClientPhoneTextField = new JTextField(15);
 
@@ -89,7 +91,7 @@ public class CreateClient extends JPanel {
 
 
 
-        // Create and add Client Address components
+        // Create and add Client Email components
         JLabel ClientEmailLabel = new JLabel("Client Email");
         JTextField ClientEmailTextField = new JTextField(15);
         // Set Client Email Label Positioning
@@ -106,6 +108,56 @@ public class CreateClient extends JPanel {
         JButton SubmitButton = new JButton("Submit");
         gbc.gridx = 1;
         gbc.gridy = 5;
+
+        SubmitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Check if Client ID has Letters
+                    try {
+                        int ClientID = Integer.parseInt(clientIDTextField.getText());
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Client ID Must be a Number");
+                    }
+                    // Check if Client Name is empty
+                    String ClientName = clientNameTextField.getText();
+                    if (ClientName.isEmpty()) {
+                        throw new IllegalArgumentException("Client Name is Empty");
+                    }
+
+                    // Check if Client Address is empty
+                    String ClientAddress = clientAddressTextField.getText();
+                    if (ClientAddress.isEmpty()) {
+                        throw new IllegalArgumentException("Client Address is Empty");
+                    }
+
+                    // Check if Client Phone Number is empty, meets the Length Requirement
+                    // and has no Letters
+                    String ClientPhoneNumber = ClientPhoneTextField.getText();
+                    if (ClientPhoneNumber.isEmpty()) {
+                        throw new IllegalArgumentException("Phone Number is Empty");
+                    } if (!ClientPhoneNumber.matches("\\d+")) {
+                        throw new IllegalArgumentException("Letters are not allowed in Phone Number");
+                    } if (ClientPhoneNumber.length() != 11) {
+                        throw new IllegalArgumentException("Phone Number is not 11 digits long");
+                    }
+
+                    // Check if Email Follows Format
+                    String ClientEmail = ClientEmailTextField.getText();
+                    if (!ClientEmail.matches("[a-zA-Z0-9.%±]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}")) {
+                        throw new IllegalArgumentException("Invalid Email Format");
+                    }
+
+                    if (ClientEmail.isEmpty()) {
+                        throw new IllegalArgumentException("Client Email is empty");
+                    }
+                    System.out.println("Validation is Executed");
+                } catch (IllegalArgumentException iae) {
+                    JOptionPane.showMessageDialog(null, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        });
 
         textFieldPanel.add(SubmitButton, gbc);
 
