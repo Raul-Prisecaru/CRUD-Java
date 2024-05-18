@@ -38,20 +38,6 @@ public class CreateCases extends JPanel {
         // Add some padding
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Create Case ID Label and TextField
-        JLabel casesIDLabel = new JLabel("Cases ID:");
-        JTextField casesIDTextField = new JTextField(15);
-
-        // Set Case ID Label Positioning
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        textFieldPanel.add(casesIDLabel, gbc);
-
-        // Set Case ID Text Field Positioning
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        textFieldPanel.add(casesIDTextField, gbc);
-
         // Create Case Number Label and TextField
         JLabel caseNumberLabel = new JLabel("Case Number:");
         JTextField caseNumberTextField = new JTextField(15);
@@ -137,17 +123,17 @@ public class CreateCases extends JPanel {
 
 
         // Create and add CaseID components
-        JLabel CaseIDLabel = new JLabel("Case ID: ");
-        JTextField CaseIDTextField = new JTextField(15);
-        // Set CaseID Label Positioning
+        JLabel ClientIDLabel = new JLabel("Client ID: ");
+        JTextField ClientIDTextField = new JTextField(15);
+        // Set ClientID Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 7;
-        textFieldPanel.add(CaseIDLabel, gbc);
+        textFieldPanel.add(ClientIDLabel, gbc);
 
-        // Set CaseID TextField Positioning
+        // Set ClientID TextField Positioning
         gbc.gridx = 1;
         gbc.gridy = 7;
-        textFieldPanel.add(CaseIDTextField, gbc);
+        textFieldPanel.add(ClientIDTextField, gbc);
 
 
 
@@ -158,65 +144,66 @@ public class CreateCases extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = 8;
 
-//        SubmitButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                try {
-//                    // Check if Client ID has Letters
-//                    int ClientID;
-//                    try {
-//                        ClientID = Integer.parseInt(casesIDTextField.getText());
-//                    } catch (NumberFormatException nfe) {
-//                        throw new IllegalArgumentException("Client ID Must be a Number");
-//                    }
-//                    clients.setClientID(ClientID);
-////                    System.out.println(clients.getClientID());
-//                    // Check if Client Name is empty
-//                    String ClientName = caseNumberTextField.getText();
-//                    if (ClientName.isEmpty()) {
-//                        throw new IllegalArgumentException("Client Name is Empty");
-//                    }
-//                    clients.setClientName(ClientName);
-//
-//                    // Check if Client Address is empty
-//                    String ClientAddress = caseTitleTextField.getText();
-//                    if (ClientAddress.isEmpty()) {
-//                        throw new IllegalArgumentException("Client Address is Empty");
-//                    }
-//                    clients.setClientAddress(ClientAddress);
-//
-//                    // Check if Client Phone Number is empty, meets the Length Requirement
-//                    // and has no Letters
-//                    String ClientPhoneNumber = caseDescriptionTextField.getText();
-//                    if (ClientPhoneNumber.isEmpty()) {
-//                        throw new IllegalArgumentException("Phone Number is Empty");
-//                    }
-//                    if (!ClientPhoneNumber.matches("\\d+")) {
-//                        throw new IllegalArgumentException("Letters are not allowed in Phone Number");
-//                    }
-//                    if (ClientPhoneNumber.length() != 11) {
-//                        throw new IllegalArgumentException("Phone Number is not 11 digits long");
-//                    }
-//                    clients.setClientPhoneNumber(ClientPhoneNumber);
-//
-//                    // Check if Email Follows Format
-//                    String ClientEmail = caseStatusTextField.getText();
-//                    if (!ClientEmail.matches("[a-zA-Z0-9.%±]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}")) {
-//                        throw new IllegalArgumentException("Invalid Email Format");
-//                    }
-//
-//                    if (ClientEmail.isEmpty()) {
-//                        throw new IllegalArgumentException("Client Email is empty");
-//                    }
-//                    clients.setClientEmail(ClientEmail);
-//                    clients.create(clients.getClientID(), clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
-//                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
-//                } catch (IllegalArgumentException iae) {
-//                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//            }
-//
-//        });
+        SubmitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Check if the answer is an Integer
+                    int caseNumber;
+                    try {
+                        caseNumber = Integer.parseInt((caseNumberTextField.getText()));
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Case Number must be a Value");
+                    }
+                    cases.setcaseNumber(String.valueOf(caseNumber));
+
+                    // Check if CaseTitle is empty
+                    String caseTitle = caseTitleTextField.getText();
+                    if (caseTitle.isEmpty()) {
+                        throw new IllegalArgumentException("Case Title cannot be empty");
+                    }
+                    cases.setCaseTitle(caseTitle);
+
+                    // Check if case Description is empty
+                    String caseDescription = caseDescriptionTextField.getText();
+                    if (caseDescription.isEmpty()) {
+                        throw new IllegalArgumentException("Case Description cannot be empty");
+                    }
+                    cases.setCaseDescription(caseDescription);
+
+                    // Check if Case Status is empty
+                    String caseStatus = caseStatusTextField.getText();
+                    if (caseStatus.isEmpty()) {
+                        throw new IllegalArgumentException("Case Status cannot be empty");
+                    }
+                    cases.setCaseStatus(caseStatus);
+
+                    // Check if Date Filed is empty
+                    String dateFiled = dateFiledTextField.getText();
+                    if (dateFiled.isEmpty()) {
+                        throw new IllegalArgumentException("Date Filed cannot be empty");
+                    }
+                    cases.setDateFiled(Integer.parseInt(dateFiled));
+
+                    // Set Date Closed to Ongoing
+                    String dateClosed = dateClosedTextField.getText();
+                    cases.setDateClosed(Integer.parseInt(dateClosed));
+
+                    int clientID;
+                    try {
+                        clientID = Integer.parseInt(ClientIDTextField.getText());
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Client ID Must be an Integer");
+                    }
+
+                    cases.create(cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
+                } catch (IllegalArgumentException iae) {
+                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        });
 
         textFieldPanel.add(SubmitButton, gbc);
 

@@ -101,7 +101,7 @@ public class Cases extends LawDatabase {
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
-            String sql = "INSERT INTO cases (case_number, case_title, case_description, case_status, date_filed, date_closed, client_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO cases (case_number, case_title, case_description, case_status, date_filed, date_closed, client_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, caseNumber);
             preparedStatement.setString(2, caseTitle);
