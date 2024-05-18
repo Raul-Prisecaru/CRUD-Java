@@ -22,7 +22,7 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Law Firm System");
-        frame.setSize(600, 400);
+        frame.setSize(650, 450);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Importing CREATE files

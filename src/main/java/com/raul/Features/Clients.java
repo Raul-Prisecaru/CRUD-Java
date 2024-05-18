@@ -60,7 +60,7 @@ public class Clients extends LawDatabase {
         this.clientEmail = clientEmail;
     }
 
-    public void create(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
+    public void create(String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -69,16 +69,24 @@ public class Clients extends LawDatabase {
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
-            String sql = "INSERT INTO clients (client_id, client_name, client_address, client_phone, client_email) VALUES (?, ?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, clientID);
-            preparedStatement.setString(2, clientName);
-            preparedStatement.setString(3, clientAddress);
-            preparedStatement.setString(4, clientPhoneNumber);
-            preparedStatement.setString(5, clientEmail);
+            String sql = "INSERT INTO clients (client_name, client_address, client_phone, client_email) VALUES (?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, clientName);
+            preparedStatement.setString(2, clientAddress);
+            preparedStatement.setString(3, clientPhoneNumber);
+            preparedStatement.setString(4, clientEmail);
 
-            preparedStatement.executeUpdate();
-            System.out.println("Record inserted successfully.");
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int lastInsertedId = rs.getInt(1);
+                        System.out.println("Record inserted successfully. Last inserted ID: " + lastInsertedId);
+                    }
+                }
+            } else {
+                System.out.println("Insert failed, no rows affected.");
+            }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         } finally {
@@ -92,6 +100,7 @@ public class Clients extends LawDatabase {
             }
         }
     }
+
 public List<Clients> retrieve() {
         List<Clients> clientList = new ArrayList<>();
         Connection connection = null;
