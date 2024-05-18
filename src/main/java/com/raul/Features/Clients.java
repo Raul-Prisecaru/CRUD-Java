@@ -81,11 +81,8 @@ public class Clients extends LawDatabase {
                 try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
                     if (rs.next()) {
                         int lastInsertedId = rs.getInt(1);
-                        System.out.println("Record inserted successfully. Last inserted ID: " + lastInsertedId);
                     }
                 }
-            } else {
-                System.out.println("Insert failed, no rows affected.");
             }
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);

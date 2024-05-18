@@ -92,7 +92,7 @@ public class Cases extends LawDatabase {
 
 
 
-    public void create(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
+    public void create(String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -101,18 +101,24 @@ public class Cases extends LawDatabase {
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
-            String sql = "INSERT INTO cases (case_id, case_number, case_title, case_description, case_status, date_filed, date_closed, client_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO cases (case_number, case_title, case_description, case_status, date_filed, date_closed, client_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, caseID);
-            preparedStatement.setString(2, caseNumber);
-            preparedStatement.setString(3, caseTitle);
-            preparedStatement.setString(4, caseDescription);
-            preparedStatement.setString(5, caseStatus);
-            preparedStatement.setInt(6, dateFiled);
-            preparedStatement.setInt(7, dateClosed);
-            preparedStatement.setInt(8, clientID);
+            preparedStatement.setString(1, caseNumber);
+            preparedStatement.setString(2, caseTitle);
+            preparedStatement.setString(3, caseDescription);
+            preparedStatement.setString(4, caseStatus);
+            preparedStatement.setInt(5, dateFiled);
+            preparedStatement.setInt(6, dateClosed);
+            preparedStatement.setInt(7, clientID);
 
-            preparedStatement.executeUpdate();
+            int afftectedRows = preparedStatement.executeUpdate();
+            if (afftectedRows > 0) {
+                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int lastInsertedId = rs.getInt(1);
+                    }
+                }
+            }
             System.out.println("Record inserted successfully.");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
