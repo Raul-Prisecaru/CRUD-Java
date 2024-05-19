@@ -39,6 +39,21 @@ public class UpdateDocuments extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Create Case Number Label and TextField
+        JLabel documentIDLabel = new JLabel("Document ID:");
+        JTextField documentIDTextField = new JTextField(15);
+
+        // Set documentID Label Positioning
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldPanel.add(documentIDLabel, gbc);
+
+        // Set documentID Text Field Positioning
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        textFieldPanel.add(documentIDTextField, gbc);
+
+
+        // Create Case Number Label and TextField
         JLabel caseIDLabel = new JLabel("Case ID:");
         JTextField CaseIDTextField = new JTextField(15);
 
@@ -106,6 +121,15 @@ public class UpdateDocuments extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Check if the answer is an Integer
+                    int documentID;
+                    try {
+                        documentID = Integer.parseInt((documentIDTextField.getText()));
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("documentID must be a Value");
+                    }
+                    documents.setDocumentID(documentID);
+
+                    // Check if the answer is an Integer
                     int caseID;
                     try {
                         caseID = Integer.parseInt((CaseIDTextField.getText()));
@@ -136,7 +160,7 @@ public class UpdateDocuments extends JPanel {
                     }
 
 
-                    documents.create(documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
+                    documents.update(documents.getDocumentID(), documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
