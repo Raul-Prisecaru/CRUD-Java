@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
 
 public class CreateCases extends JPanel {
     public CreateCases() {
@@ -83,7 +84,11 @@ public class CreateCases extends JPanel {
 
         // Create and add Case Status components
         JLabel caseStatusLabel = new JLabel("Case Status");
-        JTextField caseStatusTextField = new JTextField(15);
+        String statusOption[] = { "Opened", "Closed" };
+//        JTextField caseStatusTextField = new JTextField(15);
+        JComboBox caseStatusComboBox= new JComboBox(statusOption);
+//        caseStatusComboBox.addItemListener();
+
         // Set Case Status Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -92,7 +97,7 @@ public class CreateCases extends JPanel {
         // Set Client Case Status Positioning
         gbc.gridx = 1;
         gbc.gridy = 4;
-        textFieldPanel.add(caseStatusTextField, gbc);
+        textFieldPanel.add(caseStatusComboBox, gbc);
 
         // Create and add Date Filed components
         JLabel dateFiledLabel = new JLabel("Date Filed: ");
@@ -171,12 +176,8 @@ public class CreateCases extends JPanel {
                     }
                     cases.setCaseDescription(caseDescription);
 
-                    // Check if Case Status is empty
-                    String caseStatus = caseStatusTextField.getText();
-                    if (caseStatus.isEmpty()) {
-                        throw new IllegalArgumentException("Case Status cannot be empty");
-                    }
-                    cases.setCaseStatus(caseStatus);
+
+                    cases.setCaseStatus((String) caseStatusComboBox.getSelectedItem());
 
                     // Check if Date Filed is empty
                     String dateFiled = dateFiledTextField.getText();
