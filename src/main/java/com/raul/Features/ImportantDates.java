@@ -8,7 +8,7 @@ public class ImportantDates {
 
     // Important Dates
     int dateID;
-    String caseID;
+    int caseID;
     int eventDate;
     String eventDescription;
     // Getter and Setter for dateID
@@ -21,11 +21,11 @@ public class ImportantDates {
     }
 
     // Getter and Setter for caseID
-    public String getCaseID() {
+    public int getCaseID() {
         return caseID;
     }
 
-    public void setCaseID(String caseID) {
+    public void setCaseID(int caseID) {
         this.caseID = caseID;
     }
 
@@ -47,7 +47,7 @@ public class ImportantDates {
         this.eventDescription = eventDescription;
     }
 
-        public void create(int dateID, int caseID, int eventDate, String eventDescription) {
+        public void create(int caseID, int eventDate, String eventDescription) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -56,13 +56,19 @@ public class ImportantDates {
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
-            String sql = "INSERT INTO important_dates (date_id, case_id, event_date, event_description) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO important_dates (case_id, event_date, event_description) VALUES (?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, dateID);
-            preparedStatement.setInt(2, caseID);
-            preparedStatement.setInt(3, eventDate);
-            preparedStatement.setString(4, eventDescription);
-            preparedStatement.executeUpdate();
+            preparedStatement.setInt(1, caseID);
+            preparedStatement.setInt(2, eventDate);
+            preparedStatement.setString(3, eventDescription);
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int lastInsertedId = rs.getInt(1);
+                    }
+                }
+            }
             System.out.println("Record inserted successfully.");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
@@ -96,7 +102,7 @@ public List<ImportantDates> retrieve() {
                 ImportantDates datesObject = new ImportantDates();
 
                 datesObject.setDateID(resultSet.getInt("date_id"));
-                datesObject.setCaseID(resultSet.getString("case_id"));
+                datesObject.setCaseID(resultSet.getInt("case_id"));
                 datesObject.setEventDate(resultSet.getInt("event_date"));
                 datesObject.setEventDescription(resultSet.getString("event_description"));
 
