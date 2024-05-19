@@ -100,7 +100,7 @@ public class CreateCases extends JPanel {
         textFieldPanel.add(caseStatusComboBox, gbc);
 
         // Create and add Date Filed components
-        JLabel dateFiledLabel = new JLabel("Date Filed: ");
+        JLabel dateFiledLabel = new JLabel("Date Filed (YYYYMMDD)");
         JTextField dateFiledTextField = new JTextField(15);
         // Set Date Filed Label Positioning
         gbc.gridx = 0;
@@ -113,7 +113,7 @@ public class CreateCases extends JPanel {
         textFieldPanel.add(dateFiledTextField, gbc);
 
         // Create and add Date Closed components
-        JLabel dateClosedLabel = new JLabel("Date Closed: ");
+        JLabel dateClosedLabel = new JLabel("Date Closed (YYYYMMDD) ");
         JTextField dateClosedTextField = new JTextField(15);
         // Set Date Closed Label Positioning
         gbc.gridx = 0;
@@ -160,7 +160,7 @@ public class CreateCases extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("Case Number must be a Value");
                     }
-                    cases.setcaseNumber(String.valueOf(caseNumber));
+                    cases.setcaseNumber("CASE" + String.valueOf(caseNumber));
 
                     // Check if CaseTitle is empty
                     String caseTitle = caseTitleTextField.getText();
@@ -196,6 +196,7 @@ public class CreateCases extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("Client ID Must be an Integer");
                     }
+                    cases.setClientID(clientID);
 
                     cases.create(cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
