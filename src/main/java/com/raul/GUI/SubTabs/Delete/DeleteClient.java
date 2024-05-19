@@ -79,7 +79,9 @@ public class DeleteClient extends JPanel {
                     int ClientID = Integer.parseInt(textField.getText());
                     System.out.println(ClientID);
                     clients.delete(ClientID);
-                    table.repaint();
+//                    table.repaint();
+//                    add(scrollPane);
+
 
                 } catch (NumberFormatException NFE) {
                     System.out.println("Input Must be a Number!");

@@ -41,6 +41,7 @@ public class RetrieveDocuments extends JPanel {
                     retrieveDocument.getCaseID(),
                     retrieveDocument.getDocumentName(),
                     retrieveDocument.getDocumentType(),
+                    retrieveDocument.getDocumentPath()
             };
             tableModel.addRow(rowData);
         }
