@@ -76,15 +76,20 @@ public class DeleteClient extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int ClientID = Integer.parseInt(textField.getText());
-                    System.out.println(ClientID);
-                    clients.delete(ClientID);
-//                    table.repaint();
-//                    add(scrollPane);
+                    int clientID;
+                    try {
+                        clientID = Integer.parseInt(textField.getText());
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Client ID Must be an Integer");
+                    }
 
+                    clients.setClientID(clientID);
+                    clients.delete(clients.getClientID());
 
-                } catch (NumberFormatException NFE) {
-                    System.out.println("Input Must be a Number!");
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
+
+                } catch (IllegalArgumentException IAE) {
+                    JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

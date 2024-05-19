@@ -76,12 +76,20 @@ public class DeleteDocuments extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int DocumentID = Integer.parseInt(textField.getText());
-                    System.out.println(DocumentID);
-                    documents.delete(DocumentID);
+                    int documentID;
+                    try {
+                        documentID = Integer.parseInt(textField.getText());
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Case ID Must be an Integer");
+                    }
 
-                } catch (NumberFormatException NFE) {
-                    System.out.println("Input Must be a Number!");
+                    documents.setDocumentID(documentID);
+                    documents.delete(documents.getDocumentID());
+
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
+
+                } catch (IllegalArgumentException IAE) {
+                    JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

@@ -80,12 +80,20 @@ public class DeleteCases extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int CaseID = Integer.parseInt(textField.getText());
-                    System.out.println(CaseID);
-                    cases.delete(CaseID);
+                    int caseID;
+                    try {
+                        caseID = Integer.parseInt(textField.getText());
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Case ID Must be an Integer");
+                    }
 
-                } catch (NumberFormatException NFE) {
-                    System.out.println("Input Must be a Number!");
+                    cases.setCaseID(caseID);
+                    cases.delete(cases.getCaseID());
+
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
+
+                } catch (IllegalArgumentException IAE) {
+                    JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }

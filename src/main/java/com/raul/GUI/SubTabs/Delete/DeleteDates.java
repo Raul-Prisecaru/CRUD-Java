@@ -76,12 +76,20 @@ public class DeleteDates extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int DateID = Integer.parseInt(textField.getText());
-                    System.out.println(DateID);
-                    dates.delete(DateID);
+                    int dateID;
+                    try {
+                        dateID = Integer.parseInt(textField.getText());
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("Date ID Must be an Integer");
+                    }
 
-                } catch (NumberFormatException NFE) {
-                    System.out.println("Input Must be a Number!");
+                    dates.setDateID(dateID);
+                    dates.delete(dates.getDateID());
+
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
+
+                } catch (IllegalArgumentException IAE) {
+                    JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
 
             }
