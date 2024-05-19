@@ -39,6 +39,23 @@ public class UpdateCases extends JPanel {
         // Add some padding
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        // Create CaseID Label and TextField
+        JLabel caseIDLabel = new JLabel("CaseID:");
+        JTextField caseIDTextField = new JTextField(15);
+
+        // Set caseID Label Positioning
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldPanel.add(caseIDLabel, gbc);
+
+        // Set Case Number Text Field Positioning
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        textFieldPanel.add(caseIDTextField, gbc);
+
+
+
+
         // Create Case Number Label and TextField
         JLabel caseNumberLabel = new JLabel("Case Number:");
         JTextField caseNumberTextField = new JTextField(15);
@@ -153,6 +170,14 @@ public class UpdateCases extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    int caseID;
+                    try {
+                        caseID = Integer.parseInt((caseIDTextField.getText()));
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("CaseID must be a Value");
+                    }
+                    cases.setCaseID(caseID);
+
                     // Check if the answer is an Integer
                     int caseNumber;
                     try {
@@ -198,8 +223,8 @@ public class UpdateCases extends JPanel {
                     }
                     cases.setClientID(clientID);
 
-                    cases.create(cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
-                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
+                    cases.update(cases.getCaseID(),cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
+                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Updated");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
