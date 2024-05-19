@@ -1,5 +1,6 @@
 package com.raul.Features;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +60,7 @@ public class Documents {
         this.documentPath = documentPath;
     }
 
-    public void create(int documentID, int caseID, String documentName, String documentType, String documentPath) {
+    public void create(int caseID, String documentName, String documentType, String documentPath) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -68,15 +69,21 @@ public class Documents {
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
-            String sql = "INSERT INTO documents (document_id, case_id, document_name, document_type, document_path) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO documents (case_id, document_name, document_type, document_path) VALUES (?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, documentID);
-            preparedStatement.setInt(2, caseID);
-            preparedStatement.setString(3, documentName);
-            preparedStatement.setString(4, documentType);
-            preparedStatement.setString(5, documentPath);
+            preparedStatement.setInt(1, caseID);
+            preparedStatement.setString(2, documentName);
+            preparedStatement.setString(3, documentType);
+            preparedStatement.setString(4, documentPath);
 
-            preparedStatement.executeUpdate();
+            int affectedRows = preparedStatement.executeUpdate();
+            if (affectedRows > 0) {
+                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        int lastInsertedId = rs.getInt(1);
+                    }
+                }
+            }
             System.out.println("Record inserted successfully.");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
