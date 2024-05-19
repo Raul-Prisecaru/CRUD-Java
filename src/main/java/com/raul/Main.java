@@ -8,6 +8,7 @@ import com.raul.GUI.SubTabs.Delete.DeleteCases;
 import com.raul.GUI.SubTabs.Delete.DeleteClient;
 import com.raul.GUI.SubTabs.Delete.DeleteDates;
 import com.raul.GUI.SubTabs.Delete.DeleteDocuments;
+import com.raul.GUI.SubTabs.FileReader.FileReader;
 import com.raul.GUI.SubTabs.Retrieve.RetrieveCases;
 import com.raul.GUI.SubTabs.Retrieve.RetrieveClients;
 import com.raul.GUI.SubTabs.Retrieve.RetrieveDates;
@@ -50,6 +51,8 @@ public class Main {
         DeleteDocuments deleteDocuments = new DeleteDocuments();
         DeleteDates deleteDates = new DeleteDates();
 
+        // Importing FileReader
+        FileReader fileReader = new FileReader();
 
         // Create Main Tabbed Panel
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -96,6 +99,7 @@ public class Main {
         deleteNestedTabbedPane.addTab("📅 Dates", deleteDates);
         deletePanel.add(deleteNestedTabbedPane);
         tabbedPane.addTab("❌ DELETE", deletePanel);
+        tabbedPane.addTab("\uD83D\uDCD6 File Reader", fileReader);
 
         // Make Window Visible
         frame.add(tabbedPane);
