@@ -64,7 +64,7 @@ public class Documents {
         PreparedStatement preparedStatement = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:LawDatabase.db";
+            String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
@@ -104,7 +104,7 @@ public List<Documents> retrieve() {
         ResultSet resultSet = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:LawDatabase.db";
+            String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
@@ -146,7 +146,7 @@ public void update(int documentID, int caseID, String documentName, String docum
     PreparedStatement preparedStatement = null;
     try {
         Class.forName("org.sqlite.JDBC");
-        String url = "jdbc:sqlite:LawDatabase.db";
+        String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
         connection = DriverManager.getConnection(url);
         System.out.println("Connection to SQLite database established.");
 
@@ -180,7 +180,7 @@ public void delete(int documentID) {
     PreparedStatement preparedStatement = null;
     try {
         Class.forName("org.sqlite.JDBC");
-        String url = "jdbc:sqlite:LawDatabase.db";
+        String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
         connection = DriverManager.getConnection(url);
         System.out.println("Connection to SQLite database established.");
 
