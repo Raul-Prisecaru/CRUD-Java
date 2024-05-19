@@ -36,6 +36,21 @@ public class UpdateDates extends JPanel {
         // Add some padding
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        // Create DateID Label and TextField
+        JLabel dateIDLabel = new JLabel("Date ID");
+        JTextField dateIDTextField = new JTextField(15);
+
+        // Set CaseID Label Positioning
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldPanel.add(dateIDLabel, gbc);
+
+        // Set CaseID Text Field Positioning
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        textFieldPanel.add(dateIDTextField, gbc);
+
+
         // Create CaseID Label and TextField
         JLabel caseIDLabel = new JLabel("Case ID");
         JTextField CaseIDTextField = new JTextField(15);
@@ -88,6 +103,16 @@ public class UpdateDates extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
+                    // Check if the answer is an Integer
+                    int dateID;
+                    try {
+                        dateID = Integer.parseInt((dateIDTextField.getText()));
+                    } catch (NumberFormatException nfe) {
+                        throw new IllegalArgumentException("dateID must be a Value");
+                    }
+                    dates.setDateID(dateID);
+
                     // Check if the answer is an Integer
                     int caseID;
                     try {
@@ -111,7 +136,7 @@ public class UpdateDates extends JPanel {
                         throw new IllegalArgumentException("Event Description cannot be empty");
                     }
                     dates.setEventDescription(eventDescription);
-                    dates.create(dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
+                    dates.update(dates.getDateID(), dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
 
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
