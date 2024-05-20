@@ -201,4 +201,53 @@ public void delete(int documentID) {
             System.out.println(e);
         }
     }
-}}
+}
+public List<Documents> retrieveByID(int documentID) {
+    List<Documents> documentsList = new ArrayList<>();
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    try {
+        Class.forName("org.sqlite.JDBC");
+        String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("Connection to SQLite database established.");
+
+        String sql = "SELECT * FROM documents WHERE document_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, documentID);
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+                Documents documentsObject = new Documents();
+
+                documentsObject.setDocumentID(resultSet.getInt("document_id"));
+                documentsObject.setCaseID(resultSet.getInt("case_id"));
+                documentsObject.setDocumentName(resultSet.getString("document_name"));
+                documentsObject.setDocumentType(resultSet.getString("document_type"));
+                documentsObject.setDocumentPath(resultSet.getString("document_path"));
+
+                documentsList.add(documentsObject);
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (resultSet != null)
+                resultSet.close();
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    return documentsList;
+}
+
+
+}
+
+
+
