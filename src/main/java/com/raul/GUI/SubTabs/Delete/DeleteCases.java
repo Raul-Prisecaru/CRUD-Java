@@ -1,7 +1,6 @@
 package com.raul.GUI.SubTabs.Delete;
 
 import com.raul.Features.Cases;
-import com.raul.Features.Clients;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -9,52 +8,62 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Scanner;
 
 public class DeleteCases extends JPanel {
+    private JTextField CasesIDTextField;
+    private JScrollPane jScrollPane;
+    private DefaultTableModel tableModel;
+    Cases cases = new Cases();
     public DeleteCases() {
-        Cases cases = new Cases();
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Create Labels
         JLabel Title = new JLabel("Delete Cases from System");
 
-
         // Center the Title
         Title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
 
         // Set the Font
         Title.setFont(new Font("serif", Font.PLAIN, 20));
 
-
         // Add the labels to this panel
         add(Title);
-
 
         // Add Vertical Glue to push the components below
         add(Box.createVerticalGlue());
 
-        // Create a nested panel with GridLayout for the JTextField
+        // Create a nested panel with GridBagLayout for the JTextField
         JPanel textFieldPanel = new JPanel();
-        textFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Using FlowLayout to align components to the left
-        JTextField textField = new JTextField(20); // Specify the columns for the text field
-        JLabel label2 = new JLabel("Case ID");
-        textFieldPanel.add(label2);
-        textFieldPanel.add(textField);
+        textFieldPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Add the nested panel to the main panel
-        add(textFieldPanel);
+        CasesIDTextField = new JTextField(20);
+        JLabel ClientIDLabel = new JLabel("Client ID");
 
-        List<Cases> caseList = cases.retrieve();
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        textFieldPanel.add(ClientIDLabel, gbc);
 
-        // Column names for the table
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        textFieldPanel.add(CasesIDTextField, gbc);
+
+        JButton DeleteButton = new JButton("Delete Record");
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        textFieldPanel.add(DeleteButton, gbc);
+
+
+        List<Cases> casesList = cases.retrieve();
         String[] columnNames = {"CaseID", "CaseNumber", "CaseTitle", "CaseDescription", "CaseStatus", "DateFiled", "DateClosed", "ClientID"};
 
-        // Create a table model with empty data and column names
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0);
 
-        for (Cases retrieveCases : caseList) {
+        for (Cases retrieveCases : casesList) {
             Object[] rowData = {
                     retrieveCases.getCaseID(),
                     retrieveCases.getcaseNumberr(),
@@ -63,43 +72,71 @@ public class DeleteCases extends JPanel {
                     retrieveCases.getCaseStatus(),
                     retrieveCases.getDateFiled(),
                     retrieveCases.getDateClosed(),
-                    retrieveCases.getClientID()
+                    retrieveCases.getClientID(),
             };
             tableModel.addRow(rowData);
         }
 
-        JTable table = new JTable(tableModel);
-        table.setEnabled(false);
+    JTable table = new JTable(tableModel);
+    jScrollPane = new JScrollPane(table);
+    add(jScrollPane);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane);
+    DeleteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            deleteCases();
+            updateTable();
+        }
+    });
 
-        JButton SubmitButton = new JButton("Delete");
-
-        SubmitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    int caseID;
-                    try {
-                        caseID = Integer.parseInt(textField.getText());
-                    } catch (NumberFormatException nfe) {
-                        throw new IllegalArgumentException("Case ID Must be an Integer");
-                    }
-
-                    cases.setCaseID(caseID);
-                    cases.delete(cases.getCaseID());
-
-                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
-
-                } catch (IllegalArgumentException IAE) {
-                    JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-        });
-
-        add(SubmitButton);
-
+    add(textFieldPanel);
     }
+
+    private void updateTable() {
+        try {
+            // Clear the existing rows
+            tableModel.setRowCount(0);
+
+          List<Cases> casesList = cases.retrieve();
+          for (Cases retrieveCases : casesList) {
+            Object[] rowData = {
+                    retrieveCases.getCaseID(),
+                    retrieveCases.getcaseNumberr(),
+                    retrieveCases.getCaseTitle(),
+                    retrieveCases.getCaseDescription(),
+                    retrieveCases.getCaseStatus(),
+                    retrieveCases.getDateFiled(),
+                    retrieveCases.getDateClosed(),
+                    retrieveCases.getClientID(),
+            };
+            tableModel.addRow(rowData);
+        }
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+    }
+
+public void deleteCases() {
+try {
+      int CaseID;
+        try {
+            CaseID = Integer.parseInt(CasesIDTextField.getText());
+        } catch (NumberFormatException nfe) {
+            throw new IllegalArgumentException("Case ID Must be an Integer");
+        }
+        // Set the ClientID of user Response from TextField
+        cases.setCaseID(CaseID);
+        // Delete the relevant Record through delete method
+        cases.delete(cases.getCaseID());
+
+        // Pop-up Window with Message notifying User that Record is successfully deleted
+        JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
+
+        // Pop-up Window with Message Notifying User that Input is Invalid
+    }   catch (IllegalArgumentException IAE) {
+            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
 }
