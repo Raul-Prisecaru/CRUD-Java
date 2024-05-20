@@ -58,7 +58,7 @@ public class DeleteCases extends JPanel {
         textFieldPanel.add(DeleteButton, gbc);
 
 
-        List<Cases> casesList = cases.retrieve();
+        List<Cases> casesList = cases.Retrieve();
         String[] columnNames = {"CaseID", "CaseNumber", "CaseTitle", "CaseDescription", "CaseStatus", "DateFiled", "DateClosed", "ClientID"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -97,7 +97,7 @@ public class DeleteCases extends JPanel {
             // Clear the existing rows
             tableModel.setRowCount(0);
 
-          List<Cases> casesList = cases.retrieve();
+          List<Cases> casesList = cases.Retrieve();
           for (Cases retrieveCases : casesList) {
             Object[] rowData = {
                     retrieveCases.getCaseID(),
@@ -127,7 +127,7 @@ try {
         // Set the ClientID of user Response from TextField
         cases.setCaseID(CaseID);
         // Delete the relevant Record through delete method
-        cases.delete(cases.getCaseID());
+        cases.Delete(cases.getCaseID());
 
         // Pop-up Window with Message notifying User that Record is successfully deleted
         JOptionPane.showMessageDialog(this, "Records Successfully Deleted");

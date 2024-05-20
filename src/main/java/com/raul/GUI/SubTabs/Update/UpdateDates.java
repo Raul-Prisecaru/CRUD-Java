@@ -136,7 +136,7 @@ public class UpdateDates extends JPanel {
                         throw new IllegalArgumentException("Event Description cannot be empty");
                     }
                     dates.setEventDescription(eventDescription);
-                    dates.update(dates.getDateID(), dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
+                    dates.Update(dates.getDateID(), dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
 
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {

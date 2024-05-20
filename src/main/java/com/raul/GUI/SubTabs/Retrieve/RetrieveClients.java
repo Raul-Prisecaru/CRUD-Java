@@ -57,7 +57,7 @@ public class RetrieveClients extends JPanel {
         gbc.gridy = 2;
         textFieldPanel.add(getRecord, gbc);
 
-        List<Clients> clientsList = clients.retrieve();
+        List<Clients> clientsList = clients.Retrieve();
         String[] columnNames = {"Client ID", "Client Name", "Client Address", "Client PhoneNumber", "Client Email"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -117,7 +117,7 @@ public class RetrieveClients extends JPanel {
                 tableModel.setRowCount(0);
 
                 // Retrieve the New records from DB after Action
-                List<Clients> updatedClientsList = clients.retrieve();
+                List<Clients> updatedClientsList = clients.Retrieve();
                 for (Clients retrievedClients : updatedClientsList) {
                     Object[] rowData = {
                             retrievedClients.getClientID(),

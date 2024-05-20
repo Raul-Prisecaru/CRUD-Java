@@ -160,7 +160,7 @@ public class UpdateDocuments extends JPanel {
                     }
 
 
-                    documents.update(documents.getDocumentID(), documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
+                    documents.Update(documents.getDocumentID(), documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);

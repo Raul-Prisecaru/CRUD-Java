@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raul.Database.LawDatabase;
+import com.raul.Abstraction.CaseDatabase;
 
-public class Cases extends CaseDatabase{
+public class Cases extends CaseDatabase {
 
     // Case
     private int caseID;

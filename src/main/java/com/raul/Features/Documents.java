@@ -1,10 +1,12 @@
 package com.raul.Features;
 
+import com.raul.Abstraction.DocumentDatabase;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Documents extends DocumentDatabase{
+public class Documents extends DocumentDatabase {
 
     // Document
     private int documentID;

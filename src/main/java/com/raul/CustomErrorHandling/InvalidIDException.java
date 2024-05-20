@@ -1,4 +1,4 @@
 package com.raul.CustomErrorHandling;
 
-public class InvalidIDException {
+public class InvalidIDException extends Exception {
 }

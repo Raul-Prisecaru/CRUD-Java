@@ -4,9 +4,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raul.Database.LawDatabase;
+import com.raul.Abstraction.ClientDatabase;
 
-public class Clients extends LawDatabase {
+public class Clients extends ClientDatabase {
     //  Client
     int clientID;
     private String clientName;
@@ -59,8 +59,8 @@ public class Clients extends LawDatabase {
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
-
-    public void create(String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
+    @Override
+    public void Create(String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -97,8 +97,8 @@ public class Clients extends LawDatabase {
             }
         }
     }
-
-public List<Clients> retrieve() {
+    @Override
+    public List<Clients> Retrieve() {
         List<Clients> clientList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
@@ -140,8 +140,8 @@ public List<Clients> retrieve() {
         }
         return clientList;
     }
-
-public void update(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
+@Override
+public void Update(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -176,7 +176,9 @@ public void update(int clientID, String clientName, String clientAddress, String
     }
 }
 
-public void delete(int clientID) {
+
+@Override
+public void Delete(int clientID) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {

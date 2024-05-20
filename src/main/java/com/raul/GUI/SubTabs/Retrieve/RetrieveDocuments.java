@@ -58,7 +58,7 @@ public class RetrieveDocuments extends JPanel {
         gbc.gridy = 2;
         textFieldPanel.add(getRecord, gbc);
 
-        List<Documents> documentList = documents.retrieve();
+        List<Documents> documentList = documents.Retrieve();
         String[] columnNames = {"documentID", "caseID", "DocumentName", "DocumentType", "DocumentPath"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -102,7 +102,7 @@ public class RetrieveDocuments extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<Documents> documentList = documents.retrieveByID(Integer.parseInt(DocumentID));
+            List<Documents> documentList = documents.RetrieveByID(Integer.parseInt(DocumentID));
             for (Documents retrieveDocuments : documentList) {
                 Object[] rowData = {
                         retrieveDocuments.getDocumentID(),
@@ -118,7 +118,7 @@ public class RetrieveDocuments extends JPanel {
                 tableModel.setRowCount(0);
 
                 // Retrieve the New records from DB after Action
-            List<Documents> documentList = documents.retrieve();
+            List<Documents> documentList = documents.Retrieve();
             for (Documents retrieveDocuments : documentList) {
                 Object[] rowData = {
                         retrieveDocuments.getDocumentID(),

@@ -58,7 +58,7 @@ public class RetrieveCases extends JPanel {
         gbc.gridy = 2;
         textFieldPanel.add(getRecord, gbc);
 
-        List<Cases> caseList = cases.retrieve();
+        List<Cases> caseList = cases.Retrieve();
         String[] columnNames = {"CaseID", "CaseNumber", "CaseTitle", "CaseDescription", "CaseStatus", "DateFiled", "DateClosed", "ClientID"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -105,7 +105,7 @@ public class RetrieveCases extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<Cases> updatedCasesList = cases.retrieveByID(Integer.parseInt(caseID));
+            List<Cases> updatedCasesList = cases.RetrieveByID(Integer.parseInt(caseID));
         for (Cases retrieveCases : updatedCasesList) {
             Object[] rowData = {
                     retrieveCases.getCaseID(),
@@ -124,7 +124,7 @@ public class RetrieveCases extends JPanel {
                 tableModel.setRowCount(0);
 
                 // Retrieve the New records from DB after Action
-                List<Cases> updatedClientsList = cases.retrieve();
+                List<Cases> updatedClientsList = cases.Retrieve();
                 for (Cases retrieveCases : updatedClientsList) {
                     Object[] rowData = {
                             retrieveCases.getCaseID(),

@@ -58,7 +58,7 @@ public class DeleteClient extends JPanel {
         textFieldPanel.add(DeleteButton, gbc);
 
 
-        List<Clients> clientsList = clients.retrieve();
+        List<Clients> clientsList = clients.Retrieve();
         String[] columnNames = {"Client ID", "Client Name", "Client Address", "Client PhoneNumber", "Client Email"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -95,7 +95,7 @@ public class DeleteClient extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<Clients> updatedClientsList = clients.retrieve();
+            List<Clients> updatedClientsList = clients.Retrieve();
             for (Clients retrievedClients : updatedClientsList) {
                 Object[] rowData = {
                         retrievedClients.getClientID(),
@@ -122,7 +122,7 @@ try {
         // Set the ClientID of user Response from TextField
         clients.setClientID(clientID);
         // Delete the relevant Record through delete method
-        clients.delete(clients.getClientID());
+        clients.Delete(clients.getClientID());
 
         // Pop-up Window with Message notifying User that Record is successfully deleted
         JOptionPane.showMessageDialog(this, "Records Successfully Deleted");

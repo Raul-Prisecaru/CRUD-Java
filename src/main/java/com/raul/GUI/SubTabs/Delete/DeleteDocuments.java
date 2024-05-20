@@ -60,7 +60,7 @@ public class DeleteDocuments extends JPanel {
         textFieldPanel.add(DeleteButton, gbc);
 
 
-        List<Documents> DocumentList = documents.retrieve();
+        List<Documents> DocumentList = documents.Retrieve();
         String[] columnNames = {"DocumentID", "CaseID", "DocumentName", "DocumentType", "DocumentPath"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -97,7 +97,7 @@ public class DeleteDocuments extends JPanel {
             // Clear the existing rows
             tableModel.setRowCount(0);
 
-       List<Documents> DocumentList = documents.retrieve();
+       List<Documents> DocumentList = documents.Retrieve();
         for (Documents retrieveDocuments : DocumentList) {
             Object[] rowData = {
                     retrieveDocuments.getDocumentID(),
@@ -125,7 +125,7 @@ try {
         // Set the ClientID of user Response from TextField
         documents.setDocumentID(documentID);
         // Delete the relevant Record through delete method
-        documents.delete(documents.getDocumentID());
+        documents.Delete(documents.getDocumentID());
 
         // Pop-up Window with Message notifying User that Record is successfully deleted
         JOptionPane.showMessageDialog(this, "Records Successfully Deleted");

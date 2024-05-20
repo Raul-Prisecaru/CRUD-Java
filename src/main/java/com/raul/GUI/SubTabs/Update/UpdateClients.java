@@ -164,7 +164,7 @@ public class UpdateClients extends JPanel {
                         throw new IllegalArgumentException("Client Email is empty");
                     }
                     clients.setClientEmail(ClientEmail);
-                    clients.update(clients.getClientID(),clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
+                    clients.Update(clients.getClientID(),clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Updated");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);

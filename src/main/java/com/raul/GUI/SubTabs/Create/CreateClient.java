@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Create;
 
+import com.raul.Features.Cases;
 import com.raul.Features.Clients;
 
 import javax.swing.*;
@@ -141,7 +142,7 @@ public class CreateClient extends JPanel {
                         throw new IllegalArgumentException("Client Email is empty");
                     }
                     clients.setClientEmail(ClientEmail);
-                    clients.create(clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
+                    clients.Create(clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);

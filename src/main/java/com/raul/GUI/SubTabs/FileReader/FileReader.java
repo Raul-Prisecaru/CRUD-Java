@@ -23,7 +23,7 @@ public class FileReader extends JPanel {
         textArea.setEditable(false);
 
         // Retrieve documents and store paths in an ArrayList
-        List<Documents> documentsList = documents.retrieve();
+        List<Documents> documentsList = documents.Retrieve();
         ArrayList<String> documentTypeList = new ArrayList<>();
 
         for (Documents retrieveDocuments : documentsList) {

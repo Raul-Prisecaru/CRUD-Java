@@ -223,7 +223,7 @@ public class UpdateCases extends JPanel {
                     }
                     cases.setClientID(clientID);
 
-                    cases.update(cases.getCaseID(),cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
+                    cases.Update(cases.getCaseID(),cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Updated");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);

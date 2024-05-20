@@ -61,7 +61,7 @@ public class DeleteDates extends JPanel {
         textFieldPanel.add(DeleteButton, gbc);
 
 
-        List<ImportantDates> dateList = dates.retrieve();
+        List<ImportantDates> dateList = dates.Retrieve();
         String[] columnNames = {"DateID", "CaseID", "EventDate", "EventDescription"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -97,7 +97,7 @@ public class DeleteDates extends JPanel {
             // Clear the existing rows
             tableModel.setRowCount(0);
 
-        List<ImportantDates> dateList = dates.retrieve();
+        List<ImportantDates> dateList = dates.Retrieve();
         for (ImportantDates retrieveDates : dateList) {
             Object[] rowData = {
                     retrieveDates.getDateID(),
@@ -124,7 +124,7 @@ try {
         // Set the ClientID of user Response from TextField
         dates.setDateID(DateID);
         // Delete the relevant Record through delete method
-        dates.delete(dates.getDateID());
+        dates.Delete(dates.getDateID());
 
         // Pop-up Window with Message notifying User that Record is successfully deleted
         JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
