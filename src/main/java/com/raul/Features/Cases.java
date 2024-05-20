@@ -250,12 +250,51 @@ public void delete(int caseID) {
         }
     }
 }
+public List<Cases> retrieveByID(int caseID) {
+    List<Cases> caseList = new ArrayList<>();
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    try {
+        Class.forName("org.sqlite.JDBC");
+        String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("Connection to SQLite database established.");
 
+        String sql = "SELECT * FROM cases WHERE case_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, caseID);
+        resultSet = preparedStatement.executeQuery();
 
+        while (resultSet.next()) {
+            Cases caseObject = new Cases();
 
+            // Set values to caseObject
+            caseObject.setCaseID(resultSet.getInt("case_id"));
+            caseObject.setcaseNumber(resultSet.getString("case_number"));
+            caseObject.setCaseTitle(resultSet.getString("case_title"));
+            caseObject.setCaseDescription(resultSet.getString("case_description"));
+            caseObject.setCaseStatus(resultSet.getString("case_status"));
+            caseObject.setDateFiled(resultSet.getInt("date_filed"));
+            caseObject.setDateClosed(resultSet.getInt("date_closed"));
+            caseObject.setClientID(resultSet.getInt("client_id"));
 
-
-}
-
-
-
+            // Add caseObject to the list
+            caseList.add(caseObject);
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (resultSet != null)
+                resultSet.close();
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    return caseList;
+}}

@@ -1,77 +1,150 @@
 package com.raul.GUI.SubTabs.Retrieve;
 
 import com.raul.Features.Cases;
+import com.raul.Features.Clients;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 public class RetrieveCases extends JPanel {
+    private JTextField CaseIDTextField;
+    private JScrollPane jScrollPane;
+    private DefaultTableModel tableModel;
+    Cases cases = new Cases();
     public RetrieveCases() {
-        Cases cases = new Cases();
-
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
         // Create Labels
-        JLabel title = new JLabel("Retrieve Cases from System");
+        JLabel Title = new JLabel("Retrieve Cases from System");
 
         // Center the Title
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Set the Font
-        title.setFont(new Font("serif", Font.PLAIN, 20));
+        Title.setFont(new Font("serif", Font.PLAIN, 20));
 
-        // Add the title to this panel
-        add(title);
+        // Add the labels to this panel
+        add(Title);
 
-        // Create JTextField with preferred size
-//        JTextField textField = new JTextField();
-        // Set preferred size (Needs Fixing)
-//        textField.setPreferredSize(new Dimension(200, 30));
+        // Add Vertical Glue to push the components below
+        add(Box.createVerticalGlue());
 
-        // Add the text field to this panel
-//        add(textField);
+        // Create a nested panel with GridBagLayout for the JTextField
+        JPanel textFieldPanel = new JPanel();
+        textFieldPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Retrieve cases
+        CaseIDTextField = new JTextField(20);
+        JLabel CaseIDLabel = new JLabel("Client ID");
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        textFieldPanel.add(CaseIDLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        textFieldPanel.add(CaseIDTextField, gbc);
+
+        JButton getRecord = new JButton("Get Record");
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        textFieldPanel.add(getRecord, gbc);
+
         List<Cases> caseList = cases.retrieve();
+        String[] columnNames = {"CaseID", "CaseNumber", "CaseTitle", "CaseDescription", "CaseStatus", "DateFiled", "DateClosed", "ClientID"};
 
-        // Column names for the table
-        String[] columnNames = {"Case ID", "Case Number", "Case Title", "Case Description", "Case Status", "Date Filed", "Date Closed", "Client ID"};
+        tableModel = new DefaultTableModel(columnNames, 0);
 
-        // Create a table model with empty data and column names
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
-
-
-
-        // Enhanced Loop to do something per Case in caseList
-        for (Cases retrievedCase : caseList) {
+        for (Cases retrieveCases : caseList) {
             Object[] rowData = {
-                    retrievedCase.getCaseID(),
-                    retrievedCase.getcaseNumberr(),
-                    retrievedCase.getCaseTitle(),
-                    retrievedCase.getCaseDescription(),
-                    retrievedCase.getCaseStatus(),
-                    retrievedCase.getDateFiled(),
-                    retrievedCase.getDateClosed(),
-                    retrievedCase.getClientID()
+                    retrieveCases.getCaseID(),
+                    retrieveCases.getcaseNumberr(),
+                    retrieveCases.getCaseTitle(),
+                    retrieveCases.getCaseDescription(),
+                    retrieveCases.getCaseStatus(),
+                    retrieveCases.getDateFiled(),
+                    retrieveCases.getDateClosed(),
+                    retrieveCases.getClientID(),
             };
             tableModel.addRow(rowData);
         }
 
+    JTable table = new JTable(tableModel);
+    jScrollPane = new JScrollPane(table);
+    add(jScrollPane);
 
+    getRecord.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            updateTable();
+        }
+    });
 
-        // Create a JTable with the table model
-        JTable table = new JTable(tableModel);
-
-        // Prevent Table from being edited
-        table.setEnabled(false);
-
-        // Create a scroll pane and add the table to it
-        JScrollPane scrollPane = new JScrollPane(table);
-
-        // Add the scroll pane to this panel
-        add(scrollPane);
+    add(textFieldPanel);
     }
+
+    private void updateTable() {
+        try {
+            String caseID;
+            try {
+                caseID = String.valueOf(CaseIDTextField.getText());
+            } catch (NumberFormatException nfe) {
+                throw new IllegalArgumentException("Client ID Must be an Integer");
+            }
+
+            if (!caseID.isEmpty()) {
+            // Clear the existing rows
+            tableModel.setRowCount(0);
+
+            // Retrieve the New records from DB after Action
+            List<Cases> updatedCasesList = cases.retrieveByID(Integer.parseInt(caseID));
+        for (Cases retrieveCases : updatedCasesList) {
+            Object[] rowData = {
+                    retrieveCases.getCaseID(),
+                    retrieveCases.getcaseNumberr(),
+                    retrieveCases.getCaseTitle(),
+                    retrieveCases.getCaseDescription(),
+                    retrieveCases.getCaseStatus(),
+                    retrieveCases.getDateFiled(),
+                    retrieveCases.getDateClosed(),
+                    retrieveCases.getClientID(),
+            };
+            tableModel.addRow(rowData);
+            }
+            } else {
+                // Clear the existing rows
+                tableModel.setRowCount(0);
+
+                // Retrieve the New records from DB after Action
+                List<Cases> updatedClientsList = cases.retrieve();
+                for (Cases retrieveCases : updatedClientsList) {
+                    Object[] rowData = {
+                            retrieveCases.getCaseID(),
+                            retrieveCases.getcaseNumberr(),
+                            retrieveCases.getCaseTitle(),
+                            retrieveCases.getCaseDescription(),
+                            retrieveCases.getCaseStatus(),
+                            retrieveCases.getDateFiled(),
+                            retrieveCases.getDateClosed(),
+                            retrieveCases.getClientID(),
+                    };
+                    tableModel.addRow(rowData);
+            }
+            }
+        } catch (IllegalArgumentException IAE) {
+            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception exception) {
+            JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+}
+
+
 }
