@@ -50,17 +50,12 @@ public class DeleteClient extends JPanel {
         gbc.gridy = 1;
         textFieldPanel.add(ClientIDTextField, gbc);
 
-        JButton UpdateButton = new JButton("Update Table");
         JButton DeleteButton = new JButton("Delete Record");
 
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         textFieldPanel.add(DeleteButton, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        textFieldPanel.add(UpdateButton, gbc);
 
 
         List<Clients> clientsList = clients.retrieve();
@@ -83,13 +78,6 @@ public class DeleteClient extends JPanel {
     jScrollPane = new JScrollPane(table);
     add(jScrollPane);
 
-    UpdateButton.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            updateTable();
-        }
-    });
-
     DeleteButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -98,18 +86,15 @@ public class DeleteClient extends JPanel {
         }
     });
 
-
-
-
     add(textFieldPanel);
     }
 
     private void updateTable() {
         try {
-                // Clear the existing rows
+            // Clear the existing rows
             tableModel.setRowCount(0);
 
-            // Retrieve updated clients list and populate the table model
+            // Retrieve the New records from DB after Action
             List<Clients> updatedClientsList = clients.retrieve();
             for (Clients retrievedClients : updatedClientsList) {
                 Object[] rowData = {
@@ -121,35 +106,31 @@ public class DeleteClient extends JPanel {
                 };
                 tableModel.addRow(rowData);
             }
-
-                JOptionPane.showMessageDialog(this, "Table Updated");
-
-            } catch (IllegalArgumentException IAE) {
-                JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception exception) {
+                JOptionPane.showMessageDialog(this, exception.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
     }
 
 public void deleteClient() {
 try {
-    System.out.println("Button Clicked");
-          int clientID;
-            try {
-                clientID = Integer.parseInt(ClientIDTextField.getText());
-            } catch (NumberFormatException nfe) {
-                throw new IllegalArgumentException("Client ID Must be an Integer");
-            }
-
-            clients.setClientID(clientID);
-            clients.delete(clients.getClientID());
-
-//             Refresh the table after deletion
-//            updateTable();
-
-            JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
-
-        } catch (IllegalArgumentException IAE) {
-            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      int clientID;
+        try {
+            clientID = Integer.parseInt(ClientIDTextField.getText());
+        } catch (NumberFormatException nfe) {
+            throw new IllegalArgumentException("Client ID Must be an Integer");
         }
+        // Set the ClientID of user Response from TextField
+        clients.setClientID(clientID);
+        // Delete the relevant Record through delete method
+        clients.delete(clients.getClientID());
+
+        // Pop-up Window with Message notifying User that Record is successfully deleted
+        JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
+
+        // Pop-up Window with Message Notifying User that Input is Invalid
+    }   catch (IllegalArgumentException IAE) {
+            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }
 
 
