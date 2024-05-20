@@ -67,10 +67,56 @@ public class DeleteClient extends JPanel {
         JTable table = new JTable(tableModel);
         table.setEnabled(false);
 
-        JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane);
+        final JScrollPane[] scrollPane = {new JScrollPane(table)};
+        add(scrollPane[0]);
 
         JButton SubmitButton = new JButton("Delete");
+        JButton UpdateButton = new JButton("Update Table");
+
+
+        UpdateButton.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            // Create a new table model with updated data
+            DefaultTableModel newTableModel = new DefaultTableModel(columnNames, 0);
+            List<Clients> updatedClientsList = clients.retrieve(); // Retrieve updated clients list
+
+            for (Clients retrievedClients : updatedClientsList) {
+                Object[] rowData = {
+                        retrievedClients.getClientID(),
+                        retrievedClients.getClientName(),
+                        retrievedClients.getClientAddress(),
+                        retrievedClients.getClientPhoneNumber(),
+                        retrievedClients.getClientEmail()
+                };
+                newTableModel.addRow(rowData);
+            }
+
+            JTable newTable = new JTable(newTableModel);
+            newTable.setEnabled(false);
+            JScrollPane newScrollPane = new JScrollPane(newTable);
+
+            // Remove the old table and add the new one
+            remove(scrollPane[0]);
+            scrollPane[0] = newScrollPane;
+            add(scrollPane[0], BorderLayout.CENTER);
+
+            // Refresh the panel
+            revalidate();
+            repaint();
+
+            JOptionPane.showMessageDialog(textFieldPanel, "Table Updated");
+
+        } catch (IllegalArgumentException IAE) {
+            JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+
+
+
 
         SubmitButton.addActionListener(new ActionListener() {
             @Override
@@ -86,7 +132,9 @@ public class DeleteClient extends JPanel {
                     clients.setClientID(clientID);
                     clients.delete(clients.getClientID());
 
+
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
+
 
                 } catch (IllegalArgumentException IAE) {
                     JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
@@ -96,6 +144,7 @@ public class DeleteClient extends JPanel {
         });
 
         add(SubmitButton);
+        add(UpdateButton);
 
     }
 }
