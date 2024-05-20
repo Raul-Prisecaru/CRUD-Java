@@ -205,6 +205,52 @@ public void delete(int clientID) {
 }
 
 
+public List<Clients> retrieveByID(int clientID) {
+    List<Clients> clientList = new ArrayList<>();
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    try {
+        Class.forName("org.sqlite.JDBC");
+        String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("Connection to SQLite database established.");
+
+        String sql = "SELECT * FROM clients WHERE client_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, clientID);
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            Clients clientObjects = new Clients();
+
+            clientObjects.setClientID(resultSet.getInt("client_id"));
+            clientObjects.setClientName(resultSet.getString("client_name"));
+            clientObjects.setClientAddress(resultSet.getString("client_address"));
+            clientObjects.setClientPhoneNumber(resultSet.getString("client_phone"));
+            clientObjects.setClientEmail(resultSet.getString("client_email"));
+
+            clientList.add(clientObjects);
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (resultSet != null)
+                resultSet.close();
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    return clientList;
+}
+
+
+
 
 
 
