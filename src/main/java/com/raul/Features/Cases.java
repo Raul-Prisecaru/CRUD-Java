@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.raul.Database.LawDatabase;
 
-public class Cases extends LawDatabase {
+public class Cases extends CaseDatabase{
 
     // Case
     private int caseID;
@@ -91,8 +91,8 @@ public class Cases extends LawDatabase {
 
 
 
-
-    public void create(String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
+    @Override
+    public void Create(String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -133,8 +133,8 @@ public class Cases extends LawDatabase {
             }
         }
     }
-
-    public List<Cases> retrieve() {
+    @Override 
+    public List<Cases> Retrieve() {
         List<Cases> caseList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
@@ -183,8 +183,9 @@ public class Cases extends LawDatabase {
         }
         return caseList;
     }
-
-public void update(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
+    
+    @Override
+    public void Update(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -223,7 +224,8 @@ public void update(int caseID, String caseNumber, String caseTitle, String caseD
     }
 }
 
-public void delete(int caseID) {
+    @Override
+    public void Delete(int caseID) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -250,7 +252,9 @@ public void delete(int caseID) {
         }
     }
 }
-public List<Cases> retrieveByID(int caseID) {
+
+    @Override
+    public List<Cases> RetrieveByID(int caseID) {
     List<Cases> caseList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;
