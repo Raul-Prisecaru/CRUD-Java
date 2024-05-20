@@ -20,15 +20,17 @@ abstract class CaseDatabase {
 }
 
 abstract class DocumentDatabase {
-    public abstract void Create();
-    public abstract void Retrieve();
-    public abstract void Update();
-    public abstract void Delete();
+    public abstract void Create(int caseID, String documentName, String documentType, String documentPath);
+    public abstract List<Documents> Retrieve();
+    public abstract void Update(int documentID, int caseID, String documentName, String documentType, String documentPath);
+    public abstract void Delete(int documentID);
+    public abstract List<Documents> RetrieveByID(int documentID);
 }
 
 abstract class DateDatabase {
-    public abstract void Create();
-    public abstract void Retrieve();
-    public abstract void Update();
-    public abstract void Delete();
+    public abstract void Create(int caseID, String documentName, String documentType, String documentPath);
+    public abstract List<Documents> Retrieve();
+    public abstract void Update(int documentID, int caseID, String documentName, String documentType, String documentPath);
+    public abstract void Delete(int documentID);
+    public abstract List<Documents> RetrieveByID(int documentID);
 }

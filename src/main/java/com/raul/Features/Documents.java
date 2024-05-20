@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Documents {
+public class Documents extends DocumentDatabase{
 
     // Document
     private int documentID;
@@ -59,7 +59,8 @@ public class Documents {
         this.documentPath = documentPath;
     }
 
-    public void create(int caseID, String documentName, String documentType, String documentPath) {
+    @Override
+    public void Create(int caseID, String documentName, String documentType, String documentPath) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -97,7 +98,9 @@ public class Documents {
             }
         }
     }
-public List<Documents> retrieve() {
+
+    @Override
+    public List<Documents> Retrieve() {
         List<Documents> documentsList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
@@ -141,7 +144,8 @@ public List<Documents> retrieve() {
         return documentsList;
     }
 
-public void update(int documentID, int caseID, String documentName, String documentType, String documentPath) {
+    @Override
+    public void Update(int documentID, int caseID, String documentName, String documentType, String documentPath) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -175,7 +179,8 @@ public void update(int documentID, int caseID, String documentName, String docum
     }
 }
 
-public void delete(int documentID) {
+@Override
+public void Delete(int documentID) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -202,7 +207,9 @@ public void delete(int documentID) {
         }
     }
 }
-public List<Documents> retrieveByID(int documentID) {
+
+@Override
+public List<Documents> RetrieveByID(int documentID) {
     List<Documents> documentsList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;
