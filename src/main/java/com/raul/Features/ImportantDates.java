@@ -187,4 +187,50 @@ public void delete(int dateID) {
         }
     }
     }
+
+
+public List<ImportantDates> retrieveByID(int dateID) {
+    List<ImportantDates> dateList = new ArrayList<>();
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    ResultSet resultSet = null;
+    try {
+        Class.forName("org.sqlite.JDBC");
+        String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
+        connection = DriverManager.getConnection(url);
+        System.out.println("Connection to SQLite database established.");
+
+        String sql = "SELECT * FROM important_dates WHERE date_id = ?";
+        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, dateID);
+        resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+                ImportantDates datesObject = new ImportantDates();
+
+                datesObject.setDateID(resultSet.getInt("date_id"));
+                datesObject.setCaseID(resultSet.getInt("case_id"));
+                datesObject.setEventDate(resultSet.getInt("event_date"));
+                datesObject.setEventDescription(resultSet.getString("event_description"));
+
+                dateList.add(datesObject);
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        System.out.println(e);
+    } finally {
+        try {
+            if (resultSet != null)
+                resultSet.close();
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (connection != null)
+                connection.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    return dateList;
+}
+
+
 }
