@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ImportantDates {
+public class ImportantDates extends DateDatabase{
 
     // Important Dates
     private int dateID;
@@ -48,7 +48,8 @@ public class ImportantDates {
         this.eventDescription = eventDescription;
     }
 
-        public void create(int caseID, int eventDate, String eventDescription) {
+    @Override
+    public void Create(int caseID, int eventDate, String eventDescription) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -84,7 +85,9 @@ public class ImportantDates {
             }
         }
     }
-public List<ImportantDates> retrieve() {
+
+    @Override
+    public List<ImportantDates> Retrieve() {
         List<ImportantDates> dateList = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
@@ -127,7 +130,8 @@ public List<ImportantDates> retrieve() {
         return dateList;
     }
 
-public void update(int dateID, int caseID, int eventDate, String eventDescription) {
+    @Override
+    public void Update(int dateID, int caseID, int eventDate, String eventDescription) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -160,7 +164,8 @@ public void update(int dateID, int caseID, int eventDate, String eventDescriptio
     }
 }
 
-public void delete(int dateID) {
+@Override
+public void Delete(int dateID) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -188,8 +193,8 @@ public void delete(int dateID) {
     }
     }
 
-
-public List<ImportantDates> retrieveByID(int dateID) {
+@Override
+public List<ImportantDates> RetrieveByID(int dateID) {
     List<ImportantDates> dateList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;

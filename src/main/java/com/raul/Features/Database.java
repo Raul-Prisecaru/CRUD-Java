@@ -28,9 +28,9 @@ abstract class DocumentDatabase {
 }
 
 abstract class DateDatabase {
-    public abstract void Create(int caseID, String documentName, String documentType, String documentPath);
-    public abstract List<Documents> Retrieve();
-    public abstract void Update(int documentID, int caseID, String documentName, String documentType, String documentPath);
-    public abstract void Delete(int documentID);
-    public abstract List<Documents> RetrieveByID(int documentID);
+    public abstract void Create(int caseID, int eventDate, String eventDescription);
+    public abstract List<ImportantDates> Retrieve();
+    public abstract void Update(int dateID, int caseID, int eventDate, String eventDescription);
+    public abstract void Delete(int dateID);
+    public abstract List<ImportantDates> RetrieveByID(int dateID);
 }
