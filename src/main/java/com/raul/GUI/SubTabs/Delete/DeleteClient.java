@@ -8,143 +8,129 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.Scanner;
 
 public class DeleteClient extends JPanel {
+    private JTextField ClientIDTextField;
+    Clients clients = new Clients();
     public DeleteClient() {
-        Clients clients = new Clients();
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // Create Labels
         JLabel Title = new JLabel("Delete Clients from System");
 
-
         // Center the Title
         Title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
 
         // Set the Font
         Title.setFont(new Font("serif", Font.PLAIN, 20));
 
-
         // Add the labels to this panel
         add(Title);
-
 
         // Add Vertical Glue to push the components below
         add(Box.createVerticalGlue());
 
-        // Create a nested panel with GridLayout for the JTextField
+        // Create a nested panel with GridBagLayout for the JTextField
         JPanel textFieldPanel = new JPanel();
-        textFieldPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Using FlowLayout to align components to the left
-        JTextField textField = new JTextField(20); // Specify the columns for the text field
-        JLabel label2 = new JLabel("Client ID");
-        textFieldPanel.add(label2);
-        textFieldPanel.add(textField);
+        textFieldPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Add the nested panel to the main panel
-        add(textFieldPanel);
+        ClientIDTextField = new JTextField(20);
+        JLabel ClientIDLabel = new JLabel("Client ID");
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        textFieldPanel.add(ClientIDLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        textFieldPanel.add(ClientIDTextField, gbc);
+
+        JButton UpdateButton = new JButton("Update Table");
+        JButton DeleteButton = new JButton("Delete Record");
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        textFieldPanel.add(DeleteButton, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        textFieldPanel.add(UpdateButton, gbc);
+
 
         List<Clients> clientsList = clients.retrieve();
-
-        // Column names for the table
         String[] columnNames = {"Client ID", "Client Name", "Client Address", "Client PhoneNumber", "Client Email"};
 
-        // Create a table model with empty data and column names
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
-        for (Clients retrievedClients : clientsList) {
+        for (Clients retrieveClients : clientsList) {
             Object[] rowData = {
-                    retrievedClients.getClientID(),
-                    retrievedClients.getClientName(),
-                    retrievedClients.getClientAddress(),
-                    retrievedClients.getClientPhoneNumber(),
-                    retrievedClients.getClientEmail()
+                    retrieveClients.getClientID(),
+                    retrieveClients.getClientName(),
+                    retrieveClients.getClientAddress(),
+                    retrieveClients.getClientPhoneNumber(),
+                    retrieveClients.getClientEmail()
             };
             tableModel.addRow(rowData);
         }
 
-        JTable table = new JTable(tableModel);
-        table.setEnabled(false);
+    JTable table = new JTable(tableModel);
+    JScrollPane jScrollPane = new JScrollPane(table);
+    add(jScrollPane);
 
-        final JScrollPane[] scrollPane = {new JScrollPane(table)};
-        add(scrollPane[0]);
+    UpdateButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            updateTable();
+        }
+    });
 
-        JButton SubmitButton = new JButton("Delete");
-        JButton UpdateButton = new JButton("Update Table");
+    DeleteButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            deleteClient();
+        }
+    });
 
 
-        UpdateButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        try {
-            // Create a new table model with updated data
-            DefaultTableModel newTableModel = new DefaultTableModel(columnNames, 0);
-            List<Clients> updatedClientsList = clients.retrieve(); // Retrieve updated clients list
 
-            for (Clients retrievedClients : updatedClientsList) {
-                Object[] rowData = {
-                        retrievedClients.getClientID(),
-                        retrievedClients.getClientName(),
-                        retrievedClients.getClientAddress(),
-                        retrievedClients.getClientPhoneNumber(),
-                        retrievedClients.getClientEmail()
-                };
-                newTableModel.addRow(rowData);
+
+    add(textFieldPanel);
+    }
+
+public void updateTable() {
+    try {
+        System.out.println("Test");
+    } catch (Exception e) {
+        System.out.println(e);
+    }
+}
+
+public void deleteClient() {
+try {
+    System.out.println("Button Clicked");
+          int clientID;
+            try {
+                clientID = Integer.parseInt(ClientIDTextField.getText());
+            } catch (NumberFormatException nfe) {
+                throw new IllegalArgumentException("Client ID Must be an Integer");
             }
 
-            JTable newTable = new JTable(newTableModel);
-            newTable.setEnabled(false);
-            JScrollPane newScrollPane = new JScrollPane(newTable);
+            clients.setClientID(clientID);
+            clients.delete(clients.getClientID());
 
-            // Remove the old table and add the new one
-            remove(scrollPane[0]);
-            scrollPane[0] = newScrollPane;
-            add(scrollPane[0], BorderLayout.CENTER);
+//             Refresh the table after deletion
+//            updateTable();
 
-            // Refresh the panel
-            revalidate();
-            repaint();
-
-            JOptionPane.showMessageDialog(textFieldPanel, "Table Updated");
+            JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
 
         } catch (IllegalArgumentException IAE) {
-            JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }
-});
+}
 
 
-
-
-
-        SubmitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    int clientID;
-                    try {
-                        clientID = Integer.parseInt(textField.getText());
-                    } catch (NumberFormatException nfe) {
-                        throw new IllegalArgumentException("Client ID Must be an Integer");
-                    }
-
-                    clients.setClientID(clientID);
-                    clients.delete(clients.getClientID());
-
-
-                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Deleted");
-
-
-                } catch (IllegalArgumentException IAE) {
-                    JOptionPane.showMessageDialog(textFieldPanel, IAE.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-        });
-
-        add(SubmitButton);
-        add(UpdateButton);
-
-    }
 }
