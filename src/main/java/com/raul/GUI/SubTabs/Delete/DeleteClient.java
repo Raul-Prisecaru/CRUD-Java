@@ -11,6 +11,8 @@ import java.util.List;
 
 public class DeleteClient extends JPanel {
     private JTextField ClientIDTextField;
+    private JScrollPane jScrollPane;
+    private DefaultTableModel tableModel;
     Clients clients = new Clients();
     public DeleteClient() {
         // Layout for this Page
@@ -64,7 +66,7 @@ public class DeleteClient extends JPanel {
         List<Clients> clientsList = clients.retrieve();
         String[] columnNames = {"Client ID", "Client Name", "Client Address", "Client PhoneNumber", "Client Email"};
 
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0);
 
         for (Clients retrieveClients : clientsList) {
             Object[] rowData = {
@@ -78,7 +80,7 @@ public class DeleteClient extends JPanel {
         }
 
     JTable table = new JTable(tableModel);
-    JScrollPane jScrollPane = new JScrollPane(table);
+    jScrollPane = new JScrollPane(table);
     add(jScrollPane);
 
     UpdateButton.addActionListener(new ActionListener() {
@@ -92,6 +94,7 @@ public class DeleteClient extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             deleteClient();
+            updateTable();
         }
     });
 
@@ -101,13 +104,30 @@ public class DeleteClient extends JPanel {
     add(textFieldPanel);
     }
 
-public void updateTable() {
-    try {
-        System.out.println("Test");
-    } catch (Exception e) {
-        System.out.println(e);
+    private void updateTable() {
+        try {
+                // Clear the existing rows
+            tableModel.setRowCount(0);
+
+            // Retrieve updated clients list and populate the table model
+            List<Clients> updatedClientsList = clients.retrieve();
+            for (Clients retrievedClients : updatedClientsList) {
+                Object[] rowData = {
+                        retrievedClients.getClientID(),
+                        retrievedClients.getClientName(),
+                        retrievedClients.getClientAddress(),
+                        retrievedClients.getClientPhoneNumber(),
+                        retrievedClients.getClientEmail()
+                };
+                tableModel.addRow(rowData);
+            }
+
+                JOptionPane.showMessageDialog(this, "Table Updated");
+
+            } catch (IllegalArgumentException IAE) {
+                JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
     }
-}
 
 public void deleteClient() {
 try {
