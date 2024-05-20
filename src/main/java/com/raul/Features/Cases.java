@@ -9,14 +9,14 @@ import com.raul.Database.LawDatabase;
 public class Cases extends LawDatabase {
 
     // Case
-    int caseID;
-    String caseNumber;
-    String caseTitle;
-    String caseDescription;
-    String caseStatus;
-    int dateFiled;
-    int dateClosed;
-    int clientID;
+    private int caseID;
+    private String caseNumber;
+    private String caseTitle;
+    private String caseDescription;
+    private String caseStatus;
+    private int dateFiled;
+    private int dateClosed;
+    private int clientID;
 
         // Getter and Setter for caseID
     public int getCaseID() {

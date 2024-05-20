@@ -9,10 +9,10 @@ import com.raul.Database.LawDatabase;
 public class Clients extends LawDatabase {
     //  Client
     int clientID;
-    String clientName;
-    String clientAddress;
-    String clientPhoneNumber;
-    String clientEmail;
+    private String clientName;
+    private String clientAddress;
+    private String clientPhoneNumber;
+    private String clientEmail;
 
 
      // Getter and setter for clientID

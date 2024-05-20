@@ -7,11 +7,11 @@ import java.util.List;
 public class Documents {
 
     // Document
-    int documentID;
-    int caseID;
-    String documentName;
-    String documentType;
-    String documentPath;
+    private int documentID;
+    private int caseID;
+    private String documentName;
+    private String documentType;
+    private String documentPath;
 
      // Getter and setter for documentID
     public int getDocumentID() {

@@ -7,10 +7,11 @@ import java.util.List;
 public class ImportantDates {
 
     // Important Dates
-    int dateID;
-    int caseID;
-    int eventDate;
-    String eventDescription;
+    private int dateID;
+    private int caseID;
+    private int eventDate;
+    private String eventDescription;
+
     // Getter and Setter for dateID
     public int getDateID() {
         return dateID;
