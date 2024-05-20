@@ -40,7 +40,7 @@ public class DeleteCases extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         CasesIDTextField = new JTextField(20);
-        JLabel ClientIDLabel = new JLabel("Client ID");
+        JLabel ClientIDLabel = new JLabel("Case ID");
 
         gbc.gridx = 0;
         gbc.gridy = 1;
