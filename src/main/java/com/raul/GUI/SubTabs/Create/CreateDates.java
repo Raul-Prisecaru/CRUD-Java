@@ -104,9 +104,7 @@ public class CreateDates extends JPanel {
                     if (!eventDate.matches("\\d{4}\\d{2}\\d{2}")) {
                         throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
                     }
-
-
-//                    dates.setEventDate(Integer.parseInt(eventDate));
+                    dates.setEventDate(eventDate);
 
                     String eventDescription = eventDescriptionTextField.getText();
                     if (eventDescription.isEmpty()) {

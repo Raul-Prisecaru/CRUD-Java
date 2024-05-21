@@ -1,22 +1,25 @@
 package com.raul.GUI.SubTabs.Update;
-
-import com.raul.Features.Cases;
-import com.raul.Features.Clients;
 import com.raul.Features.Documents;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 
 public class UpdateDocuments extends JPanel {
+    private JTextField documentPathTextField;
+    private Path selectedFilePath;
+
     public UpdateDocuments() {
         Documents documents = new Documents();
         // Layout for this Page using BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         // Create Title Label
-        JLabel titleLabel = new JLabel("Update Documents from System");
+        JLabel titleLabel = new JLabel("Add Documents to System");
 
         // Set Font Name and Font Size for Title
         titleLabel.setFont(new Font("serif", Font.PLAIN, 20));
@@ -39,23 +42,24 @@ public class UpdateDocuments extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         // Create Case Number Label and TextField
-        JLabel documentIDLabel = new JLabel("Document ID:");
+        JLabel documentIDLabel = new JLabel("DocumentID:");
         JTextField documentIDTextField = new JTextField(15);
 
-        // Set documentID Label Positioning
+        // Set DocumentID Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 0;
         textFieldPanel.add(documentIDLabel, gbc);
 
-        // Set documentID Text Field Positioning
+        // Set DocumentID Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 0;
         textFieldPanel.add(documentIDTextField, gbc);
 
 
+
         // Create Case Number Label and TextField
         JLabel caseIDLabel = new JLabel("Case ID:");
-        JTextField CaseIDTextField = new JTextField(15);
+        JTextField caseIDTextField = new JTextField(15);
 
         // Set CaseID Label Positioning
         gbc.gridx = 0;
@@ -65,11 +69,12 @@ public class UpdateDocuments extends JPanel {
         // Set CaseID Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 1;
-        textFieldPanel.add(CaseIDTextField, gbc);
+        textFieldPanel.add(caseIDTextField, gbc);
 
         // Create DocumentName Label and TextField
         JLabel documentNameLabel = new JLabel("Document Name:");
         JTextField documentNameTextField = new JTextField(15);
+        documentNameTextField.setEditable(false);
 
         // Set documentName Label Positioning
         gbc.gridx = 0;
@@ -95,44 +100,71 @@ public class UpdateDocuments extends JPanel {
         gbc.gridy = 3;
         textFieldPanel.add(documentTypeTextField, gbc);
 
-
         // Create and add documentPath components
         JLabel documentPathLabel = new JLabel("Document Path");
-        JTextField documentPathTextField = new JTextField(15);
+        JButton documentButton = new JButton("Select File");
+        documentPathTextField = new JTextField(15);
+        documentPathTextField.setEditable(false);
 
-
-        // Set Case Status Label Positioning
+        // Set documentPath Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 4;
         textFieldPanel.add(documentPathLabel, gbc);
 
-        // Set Client Case Status Positioning
+        // Set documentPath TextField Positioning
         gbc.gridx = 1;
         gbc.gridy = 4;
         textFieldPanel.add(documentPathTextField, gbc);
 
-        // Create Submit Button and Set Positioning
-        JButton SubmitButton = new JButton("Submit");
-        gbc.gridx = 1;
-        gbc.gridy = 8;
 
-        SubmitButton.addActionListener(new ActionListener() {
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        textFieldPanel.add(documentButton, gbc);
+
+        // Create Submit Button and Set Positioning
+        JButton submitButton = new JButton("Submit");
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+
+        documentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser jFileChooser = new JFileChooser();
+                int result = jFileChooser.showOpenDialog(textFieldPanel);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = jFileChooser.getSelectedFile();
+                    selectedFilePath = selectedFile.toPath();
+                    documentPathTextField.setText(selectedFilePath.toString());
+
+                    // Extract file name and set it as the document name
+                    String fileName = selectedFile.getName();
+                    documentNameTextField.setText(fileName);
+
+
+                }
+            }
+        });
+
+        submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     // Check if the answer is an Integer
                     int documentID;
                     try {
-                        documentID = Integer.parseInt((documentIDTextField.getText()));
+                        documentID = Integer.parseInt(documentIDLabel.getText());
                     } catch (NumberFormatException nfe) {
-                        throw new IllegalArgumentException("documentID must be a Value");
+                        throw new IllegalArgumentException("DocumentID must be a Value");
                     }
                     documents.setDocumentID(documentID);
+
+
+
 
                     // Check if the answer is an Integer
                     int caseID;
                     try {
-                        caseID = Integer.parseInt((CaseIDTextField.getText()));
+                        caseID = Integer.parseInt(caseIDTextField.getText());
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("CaseID must be a Value");
                     }
@@ -152,28 +184,32 @@ public class UpdateDocuments extends JPanel {
                     }
                     documents.setDocumentType(documentType);
 
-
-                    // Check if Date Filed is empty
+                    // Check if Document Path is empty
                     String documentPath = documentPathTextField.getText();
                     if (documentPath.isEmpty()) {
-                        throw new IllegalArgumentException("documentPath cannot be empty");
+                        throw new IllegalArgumentException("Document Path cannot be empty");
                     }
 
+                    // Move the selected file to a specific directory
+                    Path sourcePath = Paths.get(documentPath);
+                    Path targetPath = Paths.get("src/main/java/com/raul/Documents/" + sourcePath.getFileName().toString());
+                    Files.move(sourcePath, targetPath);
 
-                    documents.Update(documents.getDocumentID(), documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
-                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
+                    documents.setDocumentPath(documentName);
+
+                    documents.Update(documents.getDocumentID(),documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
+                    JOptionPane.showMessageDialog(textFieldPanel, "Records Successfully Added");
+                } catch (IOException ioException) {
+                    JOptionPane.showMessageDialog(textFieldPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException iae) {
-                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
         });
 
-        textFieldPanel.add(SubmitButton, gbc);
+        textFieldPanel.add(submitButton, gbc);
 
-//         Add Panel
+        // Add Panel
         add(textFieldPanel);
-
     }
 }
-

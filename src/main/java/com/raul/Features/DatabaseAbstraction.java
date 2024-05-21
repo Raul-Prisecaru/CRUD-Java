@@ -1,5 +1,7 @@
 package com.raul.Features;
 
+
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -10,6 +12,7 @@ abstract class ClientDatabase {
     public abstract void Update(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail);
     public abstract void Delete(int clientID);
     public abstract List<Clients> Retrieve(int clientID);
+    public abstract boolean clientIDExists(int clientID);
 }
 
 abstract class CaseDatabase {

@@ -66,7 +66,7 @@ public class FileReader extends JPanel {
                         reader.close();
                     } catch (IOException ie) {
                         // Print the stack trace for the exception
-                        ie.printStackTrace();
+                        System.out.println("Document May Be Opened or Already Exist in /Documents.");
                     }
                 }
             }

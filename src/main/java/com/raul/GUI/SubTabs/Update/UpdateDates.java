@@ -122,14 +122,11 @@ public class UpdateDates extends JPanel {
                     }
                     dates.setCaseID(caseID);
 
-                    int eventDate;
-                    try {
-                        eventDate = Integer.parseInt((eventDatesTextField.getText()));
-
-                    } catch (NumberFormatException nfe) {
-                        throw new IllegalArgumentException("eventDate must be a Value");
+                    String eventDate = (eventDatesTextField.getText());
+                    if (!eventDate.matches("\\d{4}\\d{2}\\d{2}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
                     }
-                    dates.setCaseID(eventDate);
+                    dates.setEventDate(eventDate);
 
                     String eventDescription = eventDescriptionTextField.getText();
                     if (eventDescription.isEmpty()) {

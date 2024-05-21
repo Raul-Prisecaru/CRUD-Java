@@ -1,8 +1,7 @@
 package com.raul.GUI.SubTabs.Create;
 
-import com.raul.Features.Cases;
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Clients;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,6 +37,20 @@ public class CreateClient extends JPanel {
         // Add some padding
         gbc.insets = new Insets(5, 5, 5, 5);
 
+        // Create Client ID Label and TextField
+        JLabel clientIDLabel = new JLabel("Client ID:");
+        JTextField clientIDTextField = new JTextField(15);
+
+        // Set Client ID Label Positioning
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        textFieldPanel.add(clientIDLabel, gbc);
+
+        // Set Client ID Text Field Positioning
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        textFieldPanel.add(clientIDTextField, gbc);
+
         // Create Client Name Label and TextField
         JLabel clientNameLabel = new JLabel("Client Name:");
         JTextField clientNameTextField = new JTextField(15);
@@ -67,91 +80,88 @@ public class CreateClient extends JPanel {
         textFieldPanel.add(clientAddressTextField, gbc);
 
         // Create and add Client PhoneNumber components
-        JLabel ClientPhoneLabel = new JLabel("Client Phone");
-        JTextField ClientPhoneTextField = new JTextField(15);
+        JLabel clientPhoneLabel = new JLabel("Client Phone:");
+        JTextField clientPhoneTextField = new JTextField(15);
 
-        // Set Client PhoneNumber Label Positioning
+        // Set Client Phone Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 3;
-        textFieldPanel.add(ClientPhoneLabel, gbc);
+        textFieldPanel.add(clientPhoneLabel, gbc);
 
-        // Set Client PhoneNumber TextField Positioning
+        // Set Client Phone Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 3;
-        textFieldPanel.add(ClientPhoneTextField, gbc);
-
-
+        textFieldPanel.add(clientPhoneTextField, gbc);
 
         // Create and add Client Email components
-        JLabel ClientEmailLabel = new JLabel("Client Email");
-        JTextField ClientEmailTextField = new JTextField(15);
+        JLabel clientEmailLabel = new JLabel("Client Email:");
+        JTextField clientEmailTextField = new JTextField(15);
+
         // Set Client Email Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 4;
-        textFieldPanel.add(ClientEmailLabel, gbc);
+        textFieldPanel.add(clientEmailLabel, gbc);
 
-        // Set Client Email TextField Positioning
+        // Set Client Email Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 4;
-        textFieldPanel.add(ClientEmailTextField, gbc);
+        textFieldPanel.add(clientEmailTextField, gbc);
 
         // Create Submit Button and Set Positioning
-        JButton SubmitButton = new JButton("Submit");
+        JButton submitButton = new JButton("Submit");
         gbc.gridx = 1;
         gbc.gridy = 5;
 
-        SubmitButton.addActionListener(new ActionListener() {
+        submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     // Check if Client Name is empty
-                    String ClientName = clientNameTextField.getText();
-                    if (ClientName.isEmpty()) {
+                    String clientName = clientNameTextField.getText();
+                    if (clientName.isEmpty()) {
                         throw new IllegalArgumentException("Client Name is Empty");
                     }
-                    clients.setClientName(ClientName);
+                    clients.setClientName(clientName);
 
                     // Check if Client Address is empty
-                    String ClientAddress = clientAddressTextField.getText();
-                    if (ClientAddress.isEmpty()) {
+                    String clientAddress = clientAddressTextField.getText();
+                    if (clientAddress.isEmpty()) {
                         throw new IllegalArgumentException("Client Address is Empty");
                     }
-                    clients.setClientAddress(ClientAddress);
+                    clients.setClientAddress(clientAddress);
 
-                    // Check if Client Phone Number is empty, meets the Length Requirement
-                    // and has no Letters
-                    String ClientPhoneNumber = ClientPhoneTextField.getText();
-                    if (ClientPhoneNumber.isEmpty()) {
+                    // Check if Client Phone Number is empty, meets the Length Requirement and has no Letters
+                    String clientPhoneNumber = clientPhoneTextField.getText();
+                    if (clientPhoneNumber.isEmpty()) {
                         throw new IllegalArgumentException("Phone Number is Empty");
                     }
-                    if (!ClientPhoneNumber.matches("\\d{3}-\\d{4}")) {
+                    if (!clientPhoneNumber.matches("\\d{3}-\\d{4}")) {
                         throw new IllegalArgumentException("Phone Number Doesn't Follow Correct Format: xxx-xxxx");
                     }
-                    clients.setClientPhoneNumber(ClientPhoneNumber);
+                    clients.setClientPhoneNumber(clientPhoneNumber);
 
                     // Check if Email Follows Format
-                    String ClientEmail = ClientEmailTextField.getText();
-                    if (!ClientEmail.matches("[a-zA-Z0-9.%±]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}")) {
+                    String clientEmail = clientEmailTextField.getText();
+                    if (!clientEmail.matches("[a-zA-Z0-9.%±]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")) {
                         throw new IllegalArgumentException("Invalid Email Format");
                     }
-
-                    if (ClientEmail.isEmpty()) {
-                        throw new IllegalArgumentException("Client Email is empty");
+                    if (clientEmail.isEmpty()) {
+                        throw new IllegalArgumentException("Client Email is Empty");
                     }
-                    clients.setClientEmail(ClientEmail);
+                    clients.setClientEmail(clientEmail);
+
                     clients.Create(clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
-                    JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
+                    JOptionPane.showMessageDialog(textFieldPanel, "Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
-                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
-
         });
 
-        textFieldPanel.add(SubmitButton, gbc);
+        textFieldPanel.add(submitButton, gbc);
 
         // Add Panel
         add(textFieldPanel);
-
     }
 }
