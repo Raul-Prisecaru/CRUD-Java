@@ -97,6 +97,7 @@ public class Clients extends ClientDatabase {
             }
         }
     }
+
     @Override
     public List<Clients> Retrieve() {
         List<Clients> clientList = new ArrayList<>();
@@ -206,8 +207,8 @@ public void Delete(int clientID) {
     }
 }
 
-
-public List<Clients> retrieveByID(int clientID) {
+@Override
+public List<Clients> Retrieve(int clientID) {
     List<Clients> clientList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;

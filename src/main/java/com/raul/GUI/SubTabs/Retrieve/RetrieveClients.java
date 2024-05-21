@@ -14,6 +14,8 @@ public class RetrieveClients extends JPanel {
     private JScrollPane jScrollPane;
     private DefaultTableModel tableModel;
     Clients clients = new Clients();
+    Clients clientsbyID = new Clients();
+
     public RetrieveClients() {
         // Layout for this Page
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -101,7 +103,7 @@ public class RetrieveClients extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<Clients> updatedClientsList = clients.retrieveByID(Integer.parseInt(clientID));
+            List<Clients> updatedClientsList = clients.Retrieve(Integer.parseInt(clientID));
             for (Clients retrievedClients : updatedClientsList) {
                 Object[] rowData = {
                         retrievedClients.getClientID(),

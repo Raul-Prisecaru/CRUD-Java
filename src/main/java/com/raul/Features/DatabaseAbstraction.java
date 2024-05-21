@@ -8,18 +8,10 @@ abstract class ClientDatabase {
     public abstract List<Clients> Retrieve();
     public abstract void Update(int clientID, String clientName, String clientAddress, String clientPhoneNumber, String clientEmail);
     public abstract void Delete(int clientID);
-    public abstract List<Clients> retrieveByID(int clientID);
+    public abstract List<Clients> Retrieve(int clientID);
 }
 
 abstract class CaseDatabase {
-    private int caseID;
-    private String caseNumber;
-    private String caseTitle;
-    private String caseDescription;
-    private String caseStatus;
-    private int dateFiled;
-    private int dateClosed;
-    private int clientID;
 
     public abstract void Create(String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID);
     public abstract List<Cases> Retrieve();
