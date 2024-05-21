@@ -58,7 +58,7 @@ public class RetrieveDates extends JPanel {
         gbc.gridy = 2;
         textFieldPanel.add(getRecord, gbc);
 
-        List<ImportantDates> dateList = dates.retrieve();
+        List<ImportantDates> dateList = dates.Retrieve();
         String[] columnNames = {"DateID", "CaseID", "eventDate", "eventDescription"};
 
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -101,7 +101,7 @@ public class RetrieveDates extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<ImportantDates> dateList = dates.retrieveByID(Integer.parseInt(dateID));
+            List<ImportantDates> dateList = dates.RetrieveByID(Integer.parseInt(dateID));
             for (ImportantDates retrieveDates : dateList) {
                 Object[] rowData = {
                     retrieveDates.getDateID(),
@@ -116,7 +116,7 @@ public class RetrieveDates extends JPanel {
                 tableModel.setRowCount(0);
 
                 // Retrieve the New records from DB after Action
-                List<ImportantDates> dateList = dates.retrieve();
+                List<ImportantDates> dateList = dates.Retrieve();
                 for (ImportantDates retrieveDates : dateList) {
                     Object[] rowData = {
                             retrieveDates.getDateID(),

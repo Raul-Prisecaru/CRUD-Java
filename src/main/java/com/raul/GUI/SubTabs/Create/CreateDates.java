@@ -111,7 +111,7 @@ public class CreateDates extends JPanel {
                         throw new IllegalArgumentException("Event Description cannot be empty");
                     }
                     dates.setEventDescription(eventDescription);
-                    dates.create(dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
+                    dates.Create(dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
 
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {

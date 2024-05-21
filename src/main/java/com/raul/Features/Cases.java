@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.raul.Abstraction.CaseDatabase;
+import com.raul.Features.CaseDatabase;
 
 public class Cases extends CaseDatabase {
 

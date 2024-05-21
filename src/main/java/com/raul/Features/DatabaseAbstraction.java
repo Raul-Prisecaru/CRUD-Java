@@ -12,6 +12,15 @@ abstract class ClientDatabase {
 }
 
 abstract class CaseDatabase {
+    private int caseID;
+    private String caseNumber;
+    private String caseTitle;
+    private String caseDescription;
+    private String caseStatus;
+    private int dateFiled;
+    private int dateClosed;
+    private int clientID;
+
     public abstract void Create(String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID);
     public abstract List<Cases> Retrieve();
     public abstract void Update(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID);

@@ -169,7 +169,7 @@ public class CreateDocuments extends JPanel {
 
                     documents.setDocumentPath(documentName);
 
-                    documents.create(documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
+                    documents.Create(documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
                     JOptionPane.showMessageDialog(textFieldPanel, "Records Successfully Added");
                 } catch (IOException ioException) {
                     JOptionPane.showMessageDialog(textFieldPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
