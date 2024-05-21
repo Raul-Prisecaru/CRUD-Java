@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Update;
 import com.raul.CustomErrorHandling.IDNotFoundException;
+import com.raul.Features.Cases;
 import com.raul.Features.Documents;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class UpdateDocuments extends JPanel {
 
     public UpdateDocuments() {
         Documents documents = new Documents();
+        Cases cases = new Cases();
         // Layout for this Page using BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -165,9 +167,6 @@ public class UpdateDocuments extends JPanel {
 
                     documents.setDocumentID(documentID);
 
-
-
-
                     // Check if the answer is an Integer
                     int caseID;
                     try {
@@ -175,6 +174,12 @@ public class UpdateDocuments extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("CaseID must be a Value");
                     }
+
+                    // Check if Case ID exists
+                    if (!cases.caseIDExists(caseID)) {
+                        throw new IDNotFoundException("CaseID Doesn't Exist");
+                    }
+
                     documents.setCaseID(caseID);
 
                     // Check if Document Name is empty

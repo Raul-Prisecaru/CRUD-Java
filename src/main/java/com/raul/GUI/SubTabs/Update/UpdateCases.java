@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class UpdateCases extends JPanel {
     public UpdateCases() {
         Cases cases = new Cases();
+        Clients clients = new Clients();
 
         // Layout for this Page using BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -235,6 +236,12 @@ public class UpdateCases extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("Client ID Must be an Integer");
                     }
+
+                    // Check if Client ID exists
+                    if (!clients.clientIDExists(clientID)) {
+                        throw new IDNotFoundException("ClientID Doesn't Exists");
+                    }
+
                     cases.setClientID(clientID);
 
                     cases.Update(cases.getCaseID(),cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
