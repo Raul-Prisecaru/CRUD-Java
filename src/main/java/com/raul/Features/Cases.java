@@ -254,7 +254,7 @@ public class Cases extends CaseDatabase {
 }
 
     @Override
-    public List<Cases> RetrieveByID(int caseID) {
+    public List<Cases> Retrieve(int caseID) {
     List<Cases> caseList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;

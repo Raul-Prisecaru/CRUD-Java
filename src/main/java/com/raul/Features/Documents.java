@@ -211,7 +211,7 @@ public void Delete(int documentID) {
 }
 
 @Override
-public List<Documents> RetrieveByID(int documentID) {
+public List<Documents> Retrieve(int documentID) {
     List<Documents> documentsList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;

@@ -196,7 +196,7 @@ public void Delete(int dateID) {
     }
 
 @Override
-public List<ImportantDates> RetrieveByID(int dateID) {
+public List<ImportantDates> Retrieve(int dateID) {
     List<ImportantDates> dateList = new ArrayList<>();
     Connection connection = null;
     PreparedStatement preparedStatement = null;

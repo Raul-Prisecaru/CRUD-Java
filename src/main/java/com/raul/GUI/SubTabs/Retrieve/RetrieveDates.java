@@ -101,7 +101,7 @@ public class RetrieveDates extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<ImportantDates> dateList = dates.RetrieveByID(Integer.parseInt(dateID));
+            List<ImportantDates> dateList = dates.Retrieve(Integer.parseInt(dateID));
             for (ImportantDates retrieveDates : dateList) {
                 Object[] rowData = {
                     retrieveDates.getDateID(),

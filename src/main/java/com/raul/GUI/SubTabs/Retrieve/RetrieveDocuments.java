@@ -102,7 +102,7 @@ public class RetrieveDocuments extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<Documents> documentList = documents.RetrieveByID(Integer.parseInt(DocumentID));
+            List<Documents> documentList = documents.Retrieve(Integer.parseInt(DocumentID));
             for (Documents retrieveDocuments : documentList) {
                 Object[] rowData = {
                         retrieveDocuments.getDocumentID(),

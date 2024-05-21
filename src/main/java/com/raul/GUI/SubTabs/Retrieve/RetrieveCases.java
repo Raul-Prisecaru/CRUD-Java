@@ -105,7 +105,7 @@ public class RetrieveCases extends JPanel {
             tableModel.setRowCount(0);
 
             // Retrieve the New records from DB after Action
-            List<Cases> updatedCasesList = cases.RetrieveByID(Integer.parseInt(caseID));
+            List<Cases> updatedCasesList = cases.Retrieve(Integer.parseInt(caseID));
         for (Cases retrieveCases : updatedCasesList) {
             Object[] rowData = {
                     retrieveCases.getCaseID(),
