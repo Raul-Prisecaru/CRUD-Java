@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Update;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Cases;
 import com.raul.Features.Clients;
 
@@ -177,6 +178,12 @@ public class UpdateCases extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("CaseID must be a Value");
                     }
+                    // Check if Client ID exists
+                    if (!cases.caseIDExists(caseID)) {
+                        throw new IDNotFoundException("CaseID Doesn't Exists");
+                    }
+
+
                     cases.setCaseID(caseID);
 
                     // Check if the answer is an Integer
@@ -234,6 +241,9 @@ public class UpdateCases extends JPanel {
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Updated");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(textFieldPanel, ife.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
 

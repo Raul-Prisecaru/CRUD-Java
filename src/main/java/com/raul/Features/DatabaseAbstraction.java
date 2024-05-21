@@ -22,6 +22,8 @@ abstract class CaseDatabase {
     public abstract void Update(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID);
     public abstract void Delete(int caseID);
     public abstract List<Cases> Retrieve(int caseID);
+    public abstract boolean caseIDExists(int caseID);
+
 }
 
 abstract class DocumentDatabase {
@@ -30,6 +32,8 @@ abstract class DocumentDatabase {
     public abstract void Update(int documentID, int caseID, String documentName, String documentType, String documentPath);
     public abstract void Delete(int documentID);
     public abstract List<Documents> Retrieve(int documentID);
+    public abstract boolean documentIDExists(int documentID);
+
 }
 
 abstract class DateDatabase {
@@ -38,4 +42,7 @@ abstract class DateDatabase {
     public abstract void Update(int dateID, int caseID, String eventDate, String eventDescription);
     public abstract void Delete(int dateID);
     public abstract List<ImportantDates> Retrieve(int dateID);
+    public abstract boolean dateIDExists(int dateID);
+
+
 }

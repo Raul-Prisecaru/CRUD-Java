@@ -131,9 +131,6 @@ public class UpdateClients extends JPanel {
                         throw new IDNotFoundException("ClientID Doesn't Exists");
                     }
 
-
-
-
                     clients.setClientID(clientID);
                     // Check if Client Name is empty
                     String ClientName = clientNameTextField.getText();

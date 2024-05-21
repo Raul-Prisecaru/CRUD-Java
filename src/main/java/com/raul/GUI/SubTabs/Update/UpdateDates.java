@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Update;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.ImportantDates;
 
 import javax.swing.*;
@@ -111,6 +112,12 @@ public class UpdateDates extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("dateID must be a Value");
                     }
+
+                    // Check if Date ID exists
+                    if (!dates.dateIDExists(dateID)) {
+                        throw new IDNotFoundException("DateID Doesn't Exists");
+                    }
+
                     dates.setDateID(dateID);
 
                     // Check if the answer is an Integer
@@ -138,6 +145,8 @@ public class UpdateDates extends JPanel {
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(textFieldPanel, ife.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 

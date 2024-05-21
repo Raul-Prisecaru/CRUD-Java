@@ -255,6 +255,35 @@ public List<Documents> Retrieve(int documentID) {
     return documentsList;
 }
 
+public boolean documentIDExists(int documentID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        boolean exists = false;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
+            connection = DriverManager.getConnection(url);
+            String sql = "SELECT 1 FROM documents WHERE document_id = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, documentID);
+            resultSet = preparedStatement.executeQuery();
+            exists = resultSet.next();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return exists;
+    }
+
+
 
 }
 

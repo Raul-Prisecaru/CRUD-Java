@@ -1,4 +1,5 @@
 package com.raul.GUI.SubTabs.Update;
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Documents;
 
 import javax.swing.*;
@@ -152,10 +153,16 @@ public class UpdateDocuments extends JPanel {
                     // Check if the answer is an Integer
                     int documentID;
                     try {
-                        documentID = Integer.parseInt(documentIDLabel.getText());
+                        documentID = Integer.parseInt(documentIDTextField.getText());
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("DocumentID must be a Value");
                     }
+
+                    // Check if Document ID exists
+                    if (!documents.documentIDExists(documentID)) {
+                        throw new IDNotFoundException("DocumentID Doesn't Exists");
+                    }
+
                     documents.setDocumentID(documentID);
 
 
@@ -203,6 +210,8 @@ public class UpdateDocuments extends JPanel {
                     JOptionPane.showMessageDialog(textFieldPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(textFieldPanel, ife.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
