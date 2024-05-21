@@ -42,7 +42,7 @@ public class FileReader extends JPanel {
         list.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (e.getValueIsAdjusting()) {  // This is to prevent the event from firing twice
+                if (!e.getValueIsAdjusting()) {  // This is to prevent the event from firing twice
                     String selectedValue = list.getSelectedValue();
                     System.out.println("Selected Value: " + selectedValue);
 

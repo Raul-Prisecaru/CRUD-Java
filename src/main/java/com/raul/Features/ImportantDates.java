@@ -11,7 +11,7 @@ public class ImportantDates extends DateDatabase {
     // Important Dates
     private int dateID;
     private int caseID;
-    private int eventDate;
+    private String eventDate;
     private String eventDescription;
 
     // Getter and Setter for dateID
@@ -33,11 +33,11 @@ public class ImportantDates extends DateDatabase {
     }
 
     // Getter and Setter for eventDate
-    public int getEventDate() {
+    public String getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(int eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
@@ -51,7 +51,7 @@ public class ImportantDates extends DateDatabase {
     }
 
     @Override
-    public void Create(int caseID, int eventDate, String eventDescription) {
+    public void Create(int caseID, String eventDate, String eventDescription) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -63,7 +63,7 @@ public class ImportantDates extends DateDatabase {
             String sql = "INSERT INTO important_dates (case_id, event_date, event_description) VALUES (?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, caseID);
-            preparedStatement.setInt(2, eventDate);
+            preparedStatement.setString(2, eventDate);
             preparedStatement.setString(3, eventDescription);
             int affectedRows = preparedStatement.executeUpdate();
             if (affectedRows > 0) {
@@ -109,7 +109,7 @@ public class ImportantDates extends DateDatabase {
 
                 datesObject.setDateID(resultSet.getInt("date_id"));
                 datesObject.setCaseID(resultSet.getInt("case_id"));
-                datesObject.setEventDate(resultSet.getInt("event_date"));
+                datesObject.setEventDate(resultSet.getString("event_date"));
                 datesObject.setEventDescription(resultSet.getString("event_description"));
 
                 dateList.add(datesObject);
@@ -133,7 +133,7 @@ public class ImportantDates extends DateDatabase {
     }
 
     @Override
-    public void Update(int dateID, int caseID, int eventDate, String eventDescription) {
+    public void Update(int dateID, int caseID, String eventDate, String eventDescription) {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     try {
@@ -147,7 +147,7 @@ public class ImportantDates extends DateDatabase {
                      "WHERE date_id = ?";
         preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, caseID);
-        preparedStatement.setInt(2, eventDate);
+        preparedStatement.setString(2, eventDate);
         preparedStatement.setString(3, eventDescription);
         preparedStatement.setInt(4, dateID);
         preparedStatement.executeUpdate();
@@ -217,7 +217,7 @@ public List<ImportantDates> Retrieve(int dateID) {
 
                 datesObject.setDateID(resultSet.getInt("date_id"));
                 datesObject.setCaseID(resultSet.getInt("case_id"));
-                datesObject.setEventDate(resultSet.getInt("event_date"));
+                datesObject.setEventDate(resultSet.getString("event_date"));
                 datesObject.setEventDescription(resultSet.getString("event_description"));
 
                 dateList.add(datesObject);

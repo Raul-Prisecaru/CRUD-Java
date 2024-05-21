@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class CreateDates extends JPanel {
     public CreateDates() {
@@ -97,14 +100,13 @@ public class CreateDates extends JPanel {
                     }
                     dates.setCaseID(caseID);
 
-                    int eventDate;
-                    try {
-                        eventDate = Integer.parseInt((eventDatesTextField.getText()));
-
-                    } catch (NumberFormatException nfe) {
-                        throw new IllegalArgumentException("eventDate must be a Value");
+                    String eventDate = (eventDatesTextField.getText());
+                    if (!eventDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYY-MM-DD");
                     }
-                    dates.setCaseID(eventDate);
+
+
+//                    dates.setEventDate(Integer.parseInt(eventDate));
 
                     String eventDescription = eventDescriptionTextField.getText();
                     if (eventDescription.isEmpty()) {

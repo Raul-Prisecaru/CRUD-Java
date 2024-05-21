@@ -1,6 +1,7 @@
 package com.raul.Features;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,7 +134,7 @@ public class Cases extends CaseDatabase {
             }
         }
     }
-    @Override 
+    @Override
     public List<Cases> Retrieve() {
         List<Cases> caseList = new ArrayList<>();
         Connection connection = null;
@@ -183,7 +184,7 @@ public class Cases extends CaseDatabase {
         }
         return caseList;
     }
-    
+
     @Override
     public void Update(int caseID, String caseNumber, String caseTitle, String caseDescription, String caseStatus, int dateFiled, int dateClosed, int clientID) {
     Connection connection = null;

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.time.LocalDate;
 
 public class UpdateCases extends JPanel {
     public UpdateCases() {
@@ -206,13 +207,19 @@ public class UpdateCases extends JPanel {
 
                     // Check if Date Filed is empty
                     String dateFiled = dateFiledTextField.getText();
-                    if (dateFiled.isEmpty()) {
-                        throw new IllegalArgumentException("Date Filed cannot be empty");
+                    if (!dateFiled.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYY-MM-DD");
                     }
+
                     cases.setDateFiled(Integer.parseInt(dateFiled));
 
                     // Set Date Closed to Ongoing
                     String dateClosed = dateClosedTextField.getText();
+
+                    if (!dateClosed.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYY-MM-DD");
+                    }
+
                     cases.setDateClosed(Integer.parseInt(dateClosed));
 
                     int clientID;

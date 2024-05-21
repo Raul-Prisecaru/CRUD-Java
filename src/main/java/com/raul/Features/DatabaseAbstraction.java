@@ -1,5 +1,6 @@
 package com.raul.Features;
 
+import java.time.LocalDate;
 import java.util.List;
 
 // Template
@@ -29,9 +30,9 @@ abstract class DocumentDatabase {
 }
 
 abstract class DateDatabase {
-    public abstract void Create(int caseID, int eventDate, String eventDescription);
+    public abstract void Create(int caseID, String eventDate, String eventDescription);
     public abstract List<ImportantDates> Retrieve();
-    public abstract void Update(int dateID, int caseID, int eventDate, String eventDescription);
+    public abstract void Update(int dateID, int caseID, String eventDate, String eventDescription);
     public abstract void Delete(int dateID);
     public abstract List<ImportantDates> Retrieve(int dateID);
 }
