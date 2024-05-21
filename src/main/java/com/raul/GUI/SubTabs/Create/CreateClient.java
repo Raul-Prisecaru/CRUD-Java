@@ -124,11 +124,8 @@ public class CreateClient extends JPanel {
                     if (ClientPhoneNumber.isEmpty()) {
                         throw new IllegalArgumentException("Phone Number is Empty");
                     }
-                    if (!ClientPhoneNumber.matches("\\d+")) {
-                        throw new IllegalArgumentException("Letters are not allowed in Phone Number");
-                    }
-                    if (ClientPhoneNumber.length() != 11) {
-                        throw new IllegalArgumentException("Phone Number is not 11 digits long");
+                    if (!ClientPhoneNumber.matches("\\d{3}-\\d{4}")) {
+                        throw new IllegalArgumentException("Phone Number Doesn't Follow Correct Format: xxx-xxxx");
                     }
                     clients.setClientPhoneNumber(ClientPhoneNumber);
 
