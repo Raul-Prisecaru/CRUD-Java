@@ -37,19 +37,6 @@ public class CreateClient extends JPanel {
         // Add some padding
         gbc.insets = new Insets(5, 5, 5, 5);
 
-        // Create Client ID Label and TextField
-        JLabel clientIDLabel = new JLabel("Client ID:");
-        JTextField clientIDTextField = new JTextField(15);
-
-        // Set Client ID Label Positioning
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        textFieldPanel.add(clientIDLabel, gbc);
-
-        // Set Client ID Text Field Positioning
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        textFieldPanel.add(clientIDTextField, gbc);
 
         // Create Client Name Label and TextField
         JLabel clientNameLabel = new JLabel("Client Name:");
