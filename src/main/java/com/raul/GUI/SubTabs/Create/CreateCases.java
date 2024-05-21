@@ -100,7 +100,7 @@ public class CreateCases extends JPanel {
         textFieldPanel.add(caseStatusComboBox, gbc);
 
         // Create and add Date Filed components
-        JLabel dateFiledLabel = new JLabel("Date Filed (YYYYMMDD)");
+        JLabel dateFiledLabel = new JLabel("Date Filed");
         JTextField dateFiledTextField = new JTextField(15);
         // Set Date Filed Label Positioning
         gbc.gridx = 0;
@@ -113,7 +113,7 @@ public class CreateCases extends JPanel {
         textFieldPanel.add(dateFiledTextField, gbc);
 
         // Create and add Date Closed components
-        JLabel dateClosedLabel = new JLabel("Date Closed (YYYYMMDD) ");
+        JLabel dateClosedLabel = new JLabel("Date Closed ");
         JTextField dateClosedTextField = new JTextField(15);
         // Set Date Closed Label Positioning
         gbc.gridx = 0;

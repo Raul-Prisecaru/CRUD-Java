@@ -101,8 +101,8 @@ public class CreateDates extends JPanel {
                     dates.setCaseID(caseID);
 
                     String eventDate = (eventDatesTextField.getText());
-                    if (!eventDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-                        throw new IllegalArgumentException("Ensure that Date follows: YYYY-MM-DD");
+                    if (!eventDate.matches("\\d{4}\\d{2}\\d{2}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
                     }
 
 
