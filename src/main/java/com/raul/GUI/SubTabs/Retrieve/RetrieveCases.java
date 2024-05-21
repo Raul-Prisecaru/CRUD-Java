@@ -51,7 +51,7 @@ public class RetrieveCases extends JPanel {
         gbc.gridy = 1;
         textFieldPanel.add(CaseIDTextField, gbc);
 
-        JButton getRecord = new JButton("Get Record");
+        JButton getRecord = new JButton("Update Table / Get Record");
 
 
         gbc.gridx = 1;

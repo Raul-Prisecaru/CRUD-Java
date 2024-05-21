@@ -52,7 +52,7 @@ public class RetrieveClients extends JPanel {
         gbc.gridy = 1;
         textFieldPanel.add(ClientIDTextField, gbc);
 
-        JButton getRecord = new JButton("Get Record");
+        JButton getRecord = new JButton("Update Table / Get Record");
 
 
         gbc.gridx = 1;

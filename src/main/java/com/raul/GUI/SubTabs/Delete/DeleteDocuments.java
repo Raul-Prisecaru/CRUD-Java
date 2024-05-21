@@ -52,7 +52,7 @@ public class DeleteDocuments extends JPanel {
         gbc.gridy = 1;
         textFieldPanel.add(DocumentIDTextField, gbc);
 
-        JButton DeleteButton = new JButton("Delete Record");
+        JButton DeleteButton = new JButton("Update Table / Delete Record");
 
 
         gbc.gridx = 1;
