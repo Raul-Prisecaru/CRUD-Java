@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Update;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Clients;
 
 import javax.swing.*;
@@ -125,6 +126,14 @@ public class UpdateClients extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("Case Number must be a Value");
                     }
+                    // Check if Client ID exists
+                    if (!clients.clientIDExists(clientID)) {
+                        throw new IDNotFoundException("ClientID Doesn't Exists");
+                    }
+
+
+
+
                     clients.setClientID(clientID);
                     // Check if Client Name is empty
                     String ClientName = clientNameTextField.getText();
@@ -165,6 +174,9 @@ public class UpdateClients extends JPanel {
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Updated");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(textFieldPanel, ife.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
 
