@@ -2,7 +2,6 @@ package com.raul.GUI.SubTabs.Delete;
 
 import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Documents;
-import com.raul.Features.ImportantDates;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -85,7 +84,7 @@ public class DeleteDocuments extends JPanel {
     DeleteButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            deleteCases();
+            deleteDocument();
             updateTable();
         }
     });
@@ -115,7 +114,7 @@ public class DeleteDocuments extends JPanel {
             }
     }
 
-public void deleteCases() {
+public void deleteDocument() {
 try {
     int documentID = Integer.parseInt(DocumentIDTextField.getText());
     if (!documents.documentIDExists(documentID)) {

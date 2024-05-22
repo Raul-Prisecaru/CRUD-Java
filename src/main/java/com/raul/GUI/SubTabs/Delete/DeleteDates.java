@@ -1,7 +1,6 @@
 package com.raul.GUI.SubTabs.Delete;
 
 import com.raul.CustomErrorHandling.IDNotFoundException;
-import com.raul.Features.Cases;
 import com.raul.Features.ImportantDates;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 
 public class DeleteDates extends JPanel {
@@ -85,7 +83,7 @@ public class DeleteDates extends JPanel {
     DeleteButton.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            deleteCases();
+            deleteDate();
             updateTable();
         }
     });
@@ -114,7 +112,7 @@ public class DeleteDates extends JPanel {
             }
     }
 
-public void deleteCases() {
+public void deleteDate() {
 try {
             int DateID = Integer.parseInt(DatesIDTextField.getText());
             if (!dates.dateIDExists(DateID)) {
