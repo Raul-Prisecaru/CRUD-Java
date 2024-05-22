@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Delete;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Documents;
 import com.raul.Features.ImportantDates;
 
@@ -116,12 +117,10 @@ public class DeleteDocuments extends JPanel {
 
 public void deleteCases() {
 try {
-      int documentID;
-        try {
-            documentID = Integer.parseInt(DocumentIDTextField.getText());
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Document ID Must be an Integer");
-        }
+    int documentID = Integer.parseInt(DocumentIDTextField.getText());
+    if (!documents.documentIDExists(documentID)) {
+            throw new IDNotFoundException("CaseID Doesn't Exists");
+            }
         // Set the ClientID of user Response from TextField
         documents.setDocumentID(documentID);
         // Delete the relevant Record through delete method
@@ -131,9 +130,10 @@ try {
         JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
 
         // Pop-up Window with Message Notifying User that Input is Invalid
-    }   catch (IllegalArgumentException IAE) {
-            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+    } catch (IDNotFoundException ife) {
+            JOptionPane.showMessageDialog(this, ife.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+}
 }
 
 

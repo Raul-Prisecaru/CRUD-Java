@@ -110,7 +110,7 @@ public class CreateDates extends JPanel {
                     dates.setCaseID(caseID);
 
                     String eventDate = (eventDatesTextField.getText());
-                    if (!eventDate.matches("\\d{4}\\d{2}\\d{2}")) {
+                    if (!eventDate.matches("\\d{8}")) {
                         throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
                     }
                     dates.setEventDate(eventDate);
@@ -123,8 +123,11 @@ public class CreateDates extends JPanel {
                     dates.Create(dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
 
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
-                } catch (IllegalArgumentException | IDNotFoundException iae) {
+                } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(textFieldPanel, ife.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
 

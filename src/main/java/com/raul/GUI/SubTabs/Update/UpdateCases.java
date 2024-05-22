@@ -215,7 +215,7 @@ public class UpdateCases extends JPanel {
 
                     // Check if Date Filed is empty
                     String dateFiled = dateFiledTextField.getText();
-                    if (!dateFiled.matches("\\d{4}\\d{2}\\d{2}")) {
+                    if (!dateFiled.matches("\\d{8}")) {
                         throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
                     }
 
@@ -224,7 +224,7 @@ public class UpdateCases extends JPanel {
                     // Set Date Closed to Ongoing
                     String dateClosed = dateClosedTextField.getText();
 
-                    if (!dateClosed.matches("\\d{4}\\d{2}\\d{2}")) {
+                    if (!dateClosed.matches("\\d{8}")) {
                         throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
                     }
 

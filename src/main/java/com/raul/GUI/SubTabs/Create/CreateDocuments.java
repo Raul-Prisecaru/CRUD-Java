@@ -146,7 +146,7 @@ public class CreateDocuments extends JPanel {
                     }
                     // Check if Case ID exists
                     if (!cases.caseIDExists(caseID)) {
-                        throw new IDNotFoundException("ClientID Doesn't Exists");
+                        throw new IDNotFoundException("CaseID Doesn't Exists");
                     }
 
 
@@ -185,8 +185,9 @@ public class CreateDocuments extends JPanel {
                     JOptionPane.showMessageDialog(documentPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(documentPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                } catch (IDNotFoundException ex) {
-                    throw new RuntimeException(ex);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(documentPanel, ife.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Delete;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Cases;
 
 import javax.swing.*;
@@ -117,26 +118,26 @@ public class DeleteCases extends JPanel {
     }
 
 public void deleteCases() {
-try {
-      int CaseID;
-        try {
-            CaseID = Integer.parseInt(CasesIDTextField.getText());
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Case ID Must be an Integer");
-        }
-        // Set the ClientID of user Response from TextField
-        cases.setCaseID(CaseID);
-        // Delete the relevant Record through delete method
-        cases.Delete(cases.getCaseID());
+    try {
 
-        // Pop-up Window with Message notifying User that Record is successfully deleted
-        JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
-
-        // Pop-up Window with Message Notifying User that Input is Invalid
-    }   catch (IllegalArgumentException IAE) {
-            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-}
+            int CaseID = Integer.parseInt(CasesIDTextField.getText());
+            if (!cases.caseIDExists(CaseID)) {
+                throw new IDNotFoundException("CaseID Doesn't Exists");
+            }
 
 
-}
+
+            // Set the ClientID of user Response from TextField
+            cases.setCaseID(CaseID);
+            // Delete the relevant Record through delete method
+            cases.Delete(cases.getCaseID());
+
+            // Pop-up Window with Message notifying User that Record is successfully deleted
+            JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
+
+
+
+
+} catch (IDNotFoundException ife) {
+        JOptionPane.showMessageDialog(this, ife.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }}}

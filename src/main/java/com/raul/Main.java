@@ -56,7 +56,7 @@ public class Main {
 
         // Importing FileReader
         FileReader fileReader = new FileReader();
-
+//        lawDatabase.createDatabase();
         // Create Main Tabbed Panel
         JTabbedPane tabbedPane = new JTabbedPane();
 

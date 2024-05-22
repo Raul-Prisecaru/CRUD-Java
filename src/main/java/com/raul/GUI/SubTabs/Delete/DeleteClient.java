@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Delete;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Clients;
 
 import javax.swing.*;
@@ -113,12 +114,10 @@ public class DeleteClient extends JPanel {
 
 public void deleteClient() {
 try {
-      int clientID;
-        try {
-            clientID = Integer.parseInt(ClientIDTextField.getText());
-        } catch (NumberFormatException nfe) {
-            throw new IllegalArgumentException("Client ID Must be an Integer");
-        }
+    int clientID = Integer.parseInt(ClientIDTextField.getText());
+    if (!clients.clientIDExists(clientID)) {
+        throw new IDNotFoundException("ClientID Doesn't Exists");
+    }
         // Set the ClientID of user Response from TextField
         clients.setClientID(clientID);
         // Delete the relevant Record through delete method
@@ -128,9 +127,11 @@ try {
         JOptionPane.showMessageDialog(this, "Records Successfully Deleted");
 
         // Pop-up Window with Message Notifying User that Input is Invalid
-    }   catch (IllegalArgumentException IAE) {
-            JOptionPane.showMessageDialog(this, IAE.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+    } catch (IDNotFoundException ife) {
+        JOptionPane.showMessageDialog(this, ife.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+
+}
 }
 
 

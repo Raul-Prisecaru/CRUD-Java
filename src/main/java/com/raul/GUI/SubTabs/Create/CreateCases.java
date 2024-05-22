@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
+import java.sql.SQLException;
 
 public class CreateCases extends JPanel {
     public CreateCases() {
@@ -184,10 +185,21 @@ public class CreateCases extends JPanel {
                     if (dateFiled.isEmpty()) {
                         throw new IllegalArgumentException("Date Filed cannot be empty");
                     }
+
+                    // Check if Date Filed is empty
+                    if (!dateFiled.matches("\\d{8}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
+                    }
+
                     cases.setDateFiled(Integer.parseInt(dateFiled));
 
-                    // Set Date Closed to Ongoing
+
                     String dateClosed = dateClosedTextField.getText();
+                    // Check if Date Filed is empty
+                    if (!dateClosed.matches("\\d{8}")) {
+                        throw new IllegalArgumentException("Ensure that Date follows: YYYYMMDD");
+                    }
+
                     cases.setDateClosed(Integer.parseInt(dateClosed));
 
                     int clientID;
