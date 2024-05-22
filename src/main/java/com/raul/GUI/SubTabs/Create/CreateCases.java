@@ -87,9 +87,7 @@ public class CreateCases extends JPanel {
         // Create and add Case Status components
         JLabel caseStatusLabel = new JLabel("Case Status");
         String statusOption[] = { "Opened", "Closed" };
-//        JTextField caseStatusTextField = new JTextField(15);
         JComboBox caseStatusComboBox= new JComboBox(statusOption);
-//        caseStatusComboBox.addItemListener();
 
         // Set Case Status Label Positioning
         gbc.gridx = 0;

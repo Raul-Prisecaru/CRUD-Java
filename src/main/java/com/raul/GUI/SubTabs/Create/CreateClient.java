@@ -28,8 +28,8 @@ public class CreateClient extends JPanel {
         add(Box.createVerticalStrut(20));
 
         // Create a nested panel that uses GridBagLayout
-        JPanel textFieldPanel = new JPanel();
-        textFieldPanel.setLayout(new GridBagLayout());
+        JPanel createPanel = new JPanel();
+        createPanel.setLayout(new GridBagLayout());
         // Use GridBagConstraints to gain Access to Settings such as gridx and gridy
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -45,12 +45,12 @@ public class CreateClient extends JPanel {
         // Set Client Name Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 1;
-        textFieldPanel.add(clientNameLabel, gbc);
+        createPanel.add(clientNameLabel, gbc);
 
         // Set Client Name Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 1;
-        textFieldPanel.add(clientNameTextField, gbc);
+        createPanel.add(clientNameTextField, gbc);
 
         // Create Client Address Label and TextField
         JLabel clientAddressLabel = new JLabel("Client Address:");
@@ -59,12 +59,12 @@ public class CreateClient extends JPanel {
         // Set Client Address Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 2;
-        textFieldPanel.add(clientAddressLabel, gbc);
+        createPanel.add(clientAddressLabel, gbc);
 
         // Set Client Address Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 2;
-        textFieldPanel.add(clientAddressTextField, gbc);
+        createPanel.add(clientAddressTextField, gbc);
 
         // Create and add Client PhoneNumber components
         JLabel clientPhoneLabel = new JLabel("Client Phone:");
@@ -73,12 +73,12 @@ public class CreateClient extends JPanel {
         // Set Client Phone Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 3;
-        textFieldPanel.add(clientPhoneLabel, gbc);
+        createPanel.add(clientPhoneLabel, gbc);
 
         // Set Client Phone Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 3;
-        textFieldPanel.add(clientPhoneTextField, gbc);
+        createPanel.add(clientPhoneTextField, gbc);
 
         // Create and add Client Email components
         JLabel clientEmailLabel = new JLabel("Client Email:");
@@ -87,12 +87,12 @@ public class CreateClient extends JPanel {
         // Set Client Email Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 4;
-        textFieldPanel.add(clientEmailLabel, gbc);
+        createPanel.add(clientEmailLabel, gbc);
 
         // Set Client Email Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 4;
-        textFieldPanel.add(clientEmailTextField, gbc);
+        createPanel.add(clientEmailTextField, gbc);
 
         // Create Submit Button and Set Positioning
         JButton submitButton = new JButton("Submit");
@@ -139,16 +139,16 @@ public class CreateClient extends JPanel {
                     clients.setClientEmail(clientEmail);
 
                     clients.Create(clients.getClientName(), clients.getClientAddress(), clients.getClientPhoneNumber(), clients.getClientEmail());
-                    JOptionPane.showMessageDialog(textFieldPanel, "Records Successfully Added");
+                    JOptionPane.showMessageDialog(createPanel, "Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
-                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(createPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
 
-        textFieldPanel.add(submitButton, gbc);
+        createPanel.add(submitButton, gbc);
 
         // Add Panel
-        add(textFieldPanel);
+        add(createPanel);
     }
 }

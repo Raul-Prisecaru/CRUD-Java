@@ -35,8 +35,8 @@ public class CreateDocuments extends JPanel {
         add(Box.createVerticalStrut(5));
 
         // Create a nested panel that uses GridBagLayout
-        JPanel textFieldPanel = new JPanel();
-        textFieldPanel.setLayout(new GridBagLayout());
+        JPanel documentPanel = new JPanel();
+        documentPanel.setLayout(new GridBagLayout());
         // Use GridBagConstraints to gain Access to Settings such as gridx and gridy
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -51,12 +51,12 @@ public class CreateDocuments extends JPanel {
         // Set CaseID Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 1;
-        textFieldPanel.add(caseIDLabel, gbc);
+        documentPanel.add(caseIDLabel, gbc);
 
         // Set CaseID Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 1;
-        textFieldPanel.add(caseIDTextField, gbc);
+        documentPanel.add(caseIDTextField, gbc);
 
         // Create DocumentName Label and TextField
         JLabel documentNameLabel = new JLabel("Document Name:");
@@ -66,12 +66,12 @@ public class CreateDocuments extends JPanel {
         // Set documentName Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 2;
-        textFieldPanel.add(documentNameLabel, gbc);
+        documentPanel.add(documentNameLabel, gbc);
 
         // Set documentName Text Field Positioning
         gbc.gridx = 1;
         gbc.gridy = 2;
-        textFieldPanel.add(documentNameTextField, gbc);
+        documentPanel.add(documentNameTextField, gbc);
 
         // Create and add DocumentType components
         JLabel documentTypeLabel = new JLabel("Document Type");
@@ -80,12 +80,12 @@ public class CreateDocuments extends JPanel {
         // Set DocumentType Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 3;
-        textFieldPanel.add(documentTypeLabel, gbc);
+        documentPanel.add(documentTypeLabel, gbc);
 
         // Set DocumentType TextField Positioning
         gbc.gridx = 1;
         gbc.gridy = 3;
-        textFieldPanel.add(documentTypeTextField, gbc);
+        documentPanel.add(documentTypeTextField, gbc);
 
         // Create and add documentPath components
         JLabel documentPathLabel = new JLabel("Document Path");
@@ -96,17 +96,17 @@ public class CreateDocuments extends JPanel {
         // Set documentPath Label Positioning
         gbc.gridx = 0;
         gbc.gridy = 4;
-        textFieldPanel.add(documentPathLabel, gbc);
+        documentPanel.add(documentPathLabel, gbc);
 
         // Set documentPath TextField Positioning
         gbc.gridx = 1;
         gbc.gridy = 4;
-        textFieldPanel.add(documentPathTextField, gbc);
+        documentPanel.add(documentPathTextField, gbc);
 
 
         gbc.gridx = 2;
         gbc.gridy = 4;
-        textFieldPanel.add(documentButton, gbc);
+        documentPanel.add(documentButton, gbc);
 
         // Create Submit Button and Set Positioning
         JButton submitButton = new JButton("Submit");
@@ -117,7 +117,8 @@ public class CreateDocuments extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jFileChooser = new JFileChooser();
-                int result = jFileChooser.showOpenDialog(textFieldPanel);
+                int result = jFileChooser.showOpenDialog(documentPanel);
+
                 if (result == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = jFileChooser.getSelectedFile();
                     selectedFilePath = selectedFile.toPath();
@@ -174,25 +175,25 @@ public class CreateDocuments extends JPanel {
                     // Move the selected file to a specific directory
                     Path sourcePath = Paths.get(documentPath);
                     Path targetPath = Paths.get("src/main/java/com/raul/Documents/" + sourcePath.getFileName().toString());
-                    Files.move(sourcePath, targetPath);
+                    Files.copy(sourcePath, targetPath);
 
                     documents.setDocumentPath(documentName);
 
                     documents.Create(documents.getCaseID(), documents.getDocumentName(), documents.getDocumentType(), documents.getDocumentPath());
-                    JOptionPane.showMessageDialog(textFieldPanel, "Records Successfully Added");
+                    JOptionPane.showMessageDialog(documentPanel, "Records Successfully Added");
                 } catch (IOException ioException) {
-                    JOptionPane.showMessageDialog(textFieldPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(documentPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException iae) {
-                    JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(documentPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IDNotFoundException ex) {
                     throw new RuntimeException(ex);
                 }
             }
         });
 
-        textFieldPanel.add(submitButton, gbc);
+        documentPanel.add(submitButton, gbc);
 
         // Add Panel
-        add(textFieldPanel);
+        add(documentPanel);
     }
 }

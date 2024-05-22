@@ -8,7 +8,7 @@ import com.raul.Features.ClientDatabase;
 
 public class Clients extends ClientDatabase {
     //  Client
-    int clientID;
+    private int clientID;
     private String clientName;
     private String clientAddress;
     private String clientPhoneNumber;
@@ -108,7 +108,9 @@ public class Clients extends ClientDatabase {
             String sql = "SELECT * FROM clients";
             resultSet = statement.executeQuery(sql);
 
+
             while (resultSet.next()) {
+                System.out.println(resultSet);
                 Clients clientObjects = new Clients();
 
                 clientObjects.setClientID(resultSet.getInt("client_id"));
