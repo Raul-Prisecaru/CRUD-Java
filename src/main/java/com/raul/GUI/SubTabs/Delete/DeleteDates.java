@@ -52,12 +52,19 @@ public class DeleteDates extends JPanel {
         gbc.gridy = 1;
         textFieldPanel.add(DatesIDTextField, gbc);
 
-        JButton DeleteButton = new JButton("Update Table / Delete Record");
+        JButton DeleteButton = new JButton("Delete Record");
+        JButton UpdateButton = new JButton("Update Table");
 
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         textFieldPanel.add(DeleteButton, gbc);
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        textFieldPanel.add(UpdateButton, gbc);
+
 
 
         List<ImportantDates> dateList = dates.Retrieve();
@@ -87,6 +94,16 @@ public class DeleteDates extends JPanel {
             updateTable();
         }
     });
+
+    UpdateButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            updateTable();
+            System.out.println("Table Is Updated");
+        }
+    });
+
+
 
     add(textFieldPanel);
     }

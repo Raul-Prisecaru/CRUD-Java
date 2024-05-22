@@ -52,12 +52,18 @@ public class DeleteDocuments extends JPanel {
         gbc.gridy = 1;
         textFieldPanel.add(DocumentIDTextField, gbc);
 
-        JButton DeleteButton = new JButton("Update Table / Delete Record");
+        JButton DeleteButton = new JButton("Delete Record");
+        JButton UpdateButton = new JButton("Update Table");
 
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         textFieldPanel.add(DeleteButton, gbc);
+
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        textFieldPanel.add(UpdateButton, gbc);
 
 
         List<Documents> DocumentList = documents.Retrieve();
@@ -85,7 +91,14 @@ public class DeleteDocuments extends JPanel {
         @Override
         public void actionPerformed(ActionEvent e) {
             deleteDocument();
+        }
+    });
+
+    UpdateButton.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
             updateTable();
+            System.out.println("Table Is Updated");
         }
     });
 
@@ -117,9 +130,10 @@ public class DeleteDocuments extends JPanel {
 public void deleteDocument() {
 try {
     int documentID = Integer.parseInt(DocumentIDTextField.getText());
+
     if (!documents.documentIDExists(documentID)) {
-            throw new IDNotFoundException("CaseID Doesn't Exists");
-            }
+            throw new IDNotFoundException("DocumentID Doesn't Exists");
+    }
         // Set the ClientID of user Response from TextField
         documents.setDocumentID(documentID);
         // Delete the relevant Record through delete method
