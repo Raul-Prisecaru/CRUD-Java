@@ -1,5 +1,6 @@
 package com.raul;
 
+import com.raul.Database.LawDatabase;
 import com.raul.GUI.SubTabs.Create.CreateCases;
 import com.raul.GUI.SubTabs.Create.CreateClient;
 import com.raul.GUI.SubTabs.Create.CreateDates;
@@ -22,6 +23,8 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
+        LawDatabase lawDatabase = new LawDatabase();
+
         JFrame frame = new JFrame("Law Firm System");
         frame.setSize(650, 450);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,10 +69,12 @@ public class Main {
         createNestedTabbedPane.addTab("💼 Cases", createCases);
         createNestedTabbedPane.addTab("📃 Documents", createDocuments);
         createNestedTabbedPane.addTab("📅 Dates", createDates);
+
+        // Add Tabs to Panel
         createPanel.add(createNestedTabbedPane);
         tabbedPane.addTab("✍ CREATE", createPanel);
 
-
+        // Create second Tabs for RETRIEVE Operations
         JPanel retrievePanel = new JPanel();
         retrievePanel.setLayout(new BoxLayout(retrievePanel, BoxLayout.Y_AXIS));
         JTabbedPane retrieveNestedTabbedPane = new JTabbedPane();
@@ -80,6 +85,7 @@ public class Main {
         retrievePanel.add(retrieveNestedTabbedPane);
         tabbedPane.addTab("\uD83D\uDCDA RETRIEVE", retrievePanel);
 
+        // Create second Tabs for UPDATE Operations
         JPanel updatePanel = new JPanel();
         updatePanel.setLayout(new BoxLayout(updatePanel, BoxLayout.Y_AXIS));
         JTabbedPane updateNestedTabbedPane = new JTabbedPane();
@@ -90,10 +96,11 @@ public class Main {
         updatePanel.add(updateNestedTabbedPane);
         tabbedPane.addTab("\uD83D\uDD03 UPDATE", updatePanel);
 
+        // Create second Tabs for DELETE Operations
         JPanel deletePanel = new JPanel();
         deletePanel.setLayout(new BoxLayout(deletePanel, BoxLayout.Y_AXIS));
         JTabbedPane deleteNestedTabbedPane = new JTabbedPane();
-        deleteNestedTabbedPane.addTab("👨‍💼 Clients", deleteClient);
+        deleteNestedTabbedPane.addTab("👨 Clients", deleteClient);
         deleteNestedTabbedPane.addTab("💼 Cases", deleteCases);
         deleteNestedTabbedPane.addTab("📃 Documents", deleteDocuments);
         deleteNestedTabbedPane.addTab("📅 Dates", deleteDates);
@@ -104,5 +111,6 @@ public class Main {
         // Make Window Visible
         frame.add(tabbedPane);
         frame.setVisible(true);
+//        lawDatabase.createDatabase();
     }
 }

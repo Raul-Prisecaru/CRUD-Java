@@ -59,6 +59,7 @@ public class Clients extends ClientDatabase {
     public void setClientEmail(String clientEmail) {
         this.clientEmail = clientEmail;
     }
+
     @Override
     public void Create(String clientName, String clientAddress, String clientPhoneNumber, String clientEmail) {
         Connection connection = null;
@@ -70,20 +71,13 @@ public class Clients extends ClientDatabase {
             System.out.println("Connection to SQLite database established.");
 
             String sql = "INSERT INTO clients (client_name, client_address, client_phone, client_email) VALUES (?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, clientName);
             preparedStatement.setString(2, clientAddress);
             preparedStatement.setString(3, clientPhoneNumber);
             preparedStatement.setString(4, clientEmail);
 
-            int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        int lastInsertedId = rs.getInt(1);
-                    }
-                }
-            }
+            preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         } finally {

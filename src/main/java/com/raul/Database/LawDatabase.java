@@ -12,7 +12,7 @@ public class LawDatabase {
         Statement statement = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            String url = "jdbc:sqlite:LawDatabase.db";
+            String url = "jdbc:sqlite:src/main/java/com/raul/Database/LawDatabase.db";
             connection = DriverManager.getConnection(url);
             System.out.println("Connection to SQLite database established.");
 
@@ -92,14 +92,14 @@ public class LawDatabase {
                     "(2, '2023-03-20', 'Date filed'),\n" +
                     "(2, '2023-06-15', 'Mediation session');";
 
-//            statement.execute(CreateClients);
-//            statement.execute(CreateCases);
-//            statement.execute(CreateDocuments);
-//            statement.execute(CreateImportantDates);
-//            statement.execute(InsertClients);
-//            statement.execute(InsertCases);
-//            statement.execute(InsertDocument);
-//            statement.execute(InsertImportantDate);
+            statement.execute(CreateClients);
+            statement.execute(CreateCases);
+            statement.execute(CreateDocuments);
+            statement.execute(CreateImportantDates);
+            statement.execute(InsertClients);
+            statement.execute(InsertCases);
+            statement.execute(InsertDocument);
+            statement.execute(InsertImportantDate);
 
             System.out.println("Table created successfully.");
         } catch (ClassNotFoundException | SQLException e) {

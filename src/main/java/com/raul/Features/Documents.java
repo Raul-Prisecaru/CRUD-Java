@@ -78,14 +78,7 @@ public class Documents extends DocumentDatabase {
             preparedStatement.setString(3, documentType);
             preparedStatement.setString(4, documentPath);
 
-            int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        int lastInsertedId = rs.getInt(1);
-                    }
-                }
-            }
+            preparedStatement.executeUpdate();
             System.out.println("Record inserted successfully.");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);

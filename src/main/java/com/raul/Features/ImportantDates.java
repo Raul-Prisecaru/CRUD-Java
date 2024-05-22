@@ -65,15 +65,7 @@ public class ImportantDates extends DateDatabase {
             preparedStatement.setInt(1, caseID);
             preparedStatement.setString(2, eventDate);
             preparedStatement.setString(3, eventDescription);
-            int affectedRows = preparedStatement.executeUpdate();
-            if (affectedRows > 0) {
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        int lastInsertedId = rs.getInt(1);
-                    }
-                }
-            }
-            System.out.println("Record inserted successfully.");
+            preparedStatement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);
         } finally {

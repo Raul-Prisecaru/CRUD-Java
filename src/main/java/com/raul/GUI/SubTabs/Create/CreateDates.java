@@ -1,5 +1,7 @@
 package com.raul.GUI.SubTabs.Create;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
+import com.raul.Features.Cases;
 import com.raul.Features.ImportantDates;
 
 import javax.swing.*;
@@ -13,6 +15,7 @@ import java.util.regex.Pattern;
 public class CreateDates extends JPanel {
     public CreateDates() {
         ImportantDates dates = new ImportantDates();
+        Cases cases = new Cases();
         // Layout for this Page using BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -98,6 +101,12 @@ public class CreateDates extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("CaseID must be a Value");
                     }
+                    // Check if Case ID exists
+                    if (!cases.caseIDExists(caseID)) {
+                        throw new IDNotFoundException("ClientID Doesn't Exists");
+                    }
+
+
                     dates.setCaseID(caseID);
 
                     String eventDate = (eventDatesTextField.getText());
@@ -114,7 +123,7 @@ public class CreateDates extends JPanel {
                     dates.Create(dates.getCaseID(), dates.getEventDate(), dates.getEventDescription());
 
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
-                } catch (IllegalArgumentException iae) {
+                } catch (IllegalArgumentException | IDNotFoundException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
                 }
             }

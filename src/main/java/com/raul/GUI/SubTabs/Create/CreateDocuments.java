@@ -1,4 +1,6 @@
 package com.raul.GUI.SubTabs.Create;
+import com.raul.CustomErrorHandling.IDNotFoundException;
+import com.raul.Features.Cases;
 import com.raul.Features.Documents;
 
 import javax.swing.*;
@@ -15,6 +17,7 @@ public class CreateDocuments extends JPanel {
 
     public CreateDocuments() {
         Documents documents = new Documents();
+        Cases cases = new Cases();
         // Layout for this Page using BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -140,6 +143,12 @@ public class CreateDocuments extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("CaseID must be a Value");
                     }
+                    // Check if Case ID exists
+                    if (!cases.caseIDExists(caseID)) {
+                        throw new IDNotFoundException("ClientID Doesn't Exists");
+                    }
+
+
                     documents.setCaseID(caseID);
 
                     // Check if Document Name is empty
@@ -175,6 +184,8 @@ public class CreateDocuments extends JPanel {
                     JOptionPane.showMessageDialog(textFieldPanel, "Failed to move the file: " + ioException.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });

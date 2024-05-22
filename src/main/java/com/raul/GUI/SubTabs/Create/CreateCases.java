@@ -1,5 +1,6 @@
 package com.raul.GUI.SubTabs.Create;
 
+import com.raul.CustomErrorHandling.IDNotFoundException;
 import com.raul.Features.Cases;
 import com.raul.Features.Clients;
 
@@ -11,6 +12,7 @@ import java.awt.event.ItemEvent;
 
 public class CreateCases extends JPanel {
     public CreateCases() {
+        Clients clients = new Clients();
         Cases cases = new Cases();
 
         // Layout for this Page using BoxLayout
@@ -196,12 +198,20 @@ public class CreateCases extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("Client ID Must be an Integer");
                     }
+                    // Check if Client ID exists
+                    if (!clients.clientIDExists(clientID)) {
+                        throw new IDNotFoundException("ClientID Doesn't Exists");
+                    }
+
                     cases.setClientID(clientID);
 
                     cases.Create(cases.getcaseNumberr(), cases.getCaseTitle(), cases.getCaseDescription(), cases.getCaseStatus(), cases.getDateFiled(), cases.getDateClosed(), cases.getClientID());
                     JOptionPane.showMessageDialog(textFieldPanel,"Records Successfully Added");
                 } catch (IllegalArgumentException iae) {
                     JOptionPane.showMessageDialog(textFieldPanel, iae.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+                } catch (IDNotFoundException ife) {
+                    JOptionPane.showMessageDialog(textFieldPanel, ife.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }
 

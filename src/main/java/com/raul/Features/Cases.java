@@ -113,13 +113,7 @@ public class Cases extends CaseDatabase {
             preparedStatement.setInt(7, clientID);
 
             int afftectedRows = preparedStatement.executeUpdate();
-            if (afftectedRows > 0) {
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        int lastInsertedId = rs.getInt(1);
-                    }
-                }
-            }
+//
             System.out.println("Record inserted successfully.");
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);

@@ -179,7 +179,7 @@ public class UpdateCases extends JPanel {
                     } catch (NumberFormatException nfe) {
                         throw new IllegalArgumentException("CaseID must be a Value");
                     }
-                    // Check if Client ID exists
+                    // Check if Case ID exists
                     if (!cases.caseIDExists(caseID)) {
                         throw new IDNotFoundException("CaseID Doesn't Exists");
                     }
